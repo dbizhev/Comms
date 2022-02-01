@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Box } from "../components/box";
+import { Button } from "../components/button";
 
 import IPageProps from "../interfaces/page.interface";
 import { SignInWithSocialMedia } from "../modules/auth";
@@ -25,26 +27,20 @@ const LogInPage: React.FunctionComponent<IPageProps> = (props) => {
   };
 
   return (
-    <div className="AuthLogin">
-      <div className="auth-main-container">
-        <div>
-          <h1>Welcome to React App</h1>
-          <p>Please Signup to continue by choosing one of the options below.</p>
-        </div>
-        <div className="auth-btn-wrapper">
-          <button
-            disabled={authenticating}
-            onClick={() => signInWithSocialMedia()}
-          >
-            SignUp with Google
-          </button>
-
-          <Link to={`/`}>
-            <button>Back To Home Page</button>
-          </Link>
-        </div>
-      </div>
-    </div>
+    <Box
+      css={{
+        backgroundColor: "$white",
+        color: "$black",
+        fontSize: "$5",
+        padding: "$4",
+        marginLeft: "800px",
+        marginTop: "400px",
+      }}
+    >
+      <Button disabled={authenticating} onClick={() => signInWithSocialMedia()}>
+        SignIn with Google
+      </Button>
+    </Box>
   );
 };
 
