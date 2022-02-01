@@ -2,7 +2,6 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const auth = getAuth();
 
-
 export const SignInWithSocialMedia = () =>
     new Promise<any>((resolve, reject) => {
     const googleProvider = new GoogleAuthProvider();

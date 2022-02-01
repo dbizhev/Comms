@@ -1,6 +1,5 @@
 import IRoute from "../interfaces/route.interface";
-// import SignUpPage from "../pages/auth/SignUp";
-// import CartPage from "../pages/CartPage";
+import AddChannel from "../pages/AddChannel";
 import HomePage from "../pages/HomePage";
 import LogInPage from "../pages/LoginPage";
 
@@ -13,9 +12,9 @@ const routes: IRoute[] = [
         protected: true
     },
     {
-        path: '/thread',
+        path: '/add-channel',
         exact: true,
-        component: HomePage,
+        component: AddChannel,
         name: 'Home Page',
         protected: true
     },

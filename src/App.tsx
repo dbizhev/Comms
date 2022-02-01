@@ -26,7 +26,7 @@ const App: React.FunctionComponent<IApplicationProps> = (props) => {
       setLoading(false);
     });
   }, []);
-  if (loading) return <div>Loding...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <Router>
