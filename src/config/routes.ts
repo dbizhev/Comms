@@ -1,7 +1,9 @@
 import IRoute from "../interfaces/route.interface";
 import AddChannel from "../pages/AddChannel";
+import Channel from "../pages/Channel";
 import HomePage from "../pages/HomePage";
 import LogInPage from "../pages/LoginPage";
+import PostChannel from "../pages/PostChannel";
 
 const routes: IRoute[] = [
     {
@@ -15,7 +17,21 @@ const routes: IRoute[] = [
         path: '/add-channel',
         exact: true,
         component: AddChannel,
-        name: 'Home Page',
+        name: 'Add Channel',
+        protected: true
+    },
+    {
+        path: '/channel/:channel_id/:name',
+        exact: true,
+        component: Channel,
+        name: 'Channel',
+        protected: true
+    },
+    {
+        path: '/channel/:channel_id/:name/post',
+        exact: true,
+        component: PostChannel,
+        name: 'Post Channel',
         protected: true
     },
     {

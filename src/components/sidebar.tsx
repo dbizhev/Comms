@@ -62,7 +62,11 @@ export default function Sidebar() {
       </div>
       {channelList.length > 0 &&
         channelList.map((channel: any) => {
-          return <SideBarItem key={channel.chId}>{channel.chName}</SideBarItem>;
+          return (
+            <Link to={`/channel/${channel.chId}/${channel.chName}`} key={channel.chId}>
+              <SideBarItem>#{channel.chName}</SideBarItem>
+            </Link>
+          );
         })}
       <div style={{ marginTop: 400 }}>
         <Button>
