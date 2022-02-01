@@ -1,5 +1,8 @@
 import { getAuth } from "firebase/auth";
+import { query, getDocs, collection } from "firebase/firestore";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { db } from "../config/firebase";
 import { styled } from "../stitches.config";
 import { Button } from "./button";
 import { SideBarItem } from "./sidebaritem";
@@ -21,10 +24,31 @@ const LogoContainer = styled("div", {
 const auth = getAuth();
 
 export default function Sidebar() {
+  const [channelList, setChannelList] = useState<any>([]);
+
   const logOut = () => {
     auth.signOut();
     window.location.reload();
   };
+
+  const fetchChannels = useCallback(async () => {
+    const q = query(collection(db, "channels"));
+    const docs = await getDocs(q);
+    let allChannels: Array<any> = [];
+    docs.forEach((item: any) => {
+      const data = item.data();
+      allChannels.push(data);
+    });
+    // const postComments = allChannels.filter((item, key) => {
+    //   return item.pId === id;
+    // });
+    setChannelList(allChannels);
+  }, []);
+  console.log(channelList);
+
+  useEffect(() => {
+    fetchChannels();
+  }, [fetchChannels]);
   return (
     <SidebarContainer>
       <LogoContainer>
@@ -36,11 +60,10 @@ export default function Sidebar() {
       <div>
         <h3>CHANNELS</h3>
       </div>
-      <SideBarItem>Channel</SideBarItem>
-      <SideBarItem>Channel</SideBarItem>
-      <SideBarItem>Channel</SideBarItem>
-      <SideBarItem>Channel</SideBarItem>
-      <SideBarItem>Channel</SideBarItem>
+      {channelList.length > 0 &&
+        channelList.map((channel: any) => {
+          return <SideBarItem key={channel.chId}>{channel.chName}</SideBarItem>;
+        })}
       <div style={{ marginTop: 400 }}>
         <Button>
           <Link to={"/add-channel"}>Add channel</Link>
