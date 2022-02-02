@@ -106,11 +106,13 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
                   rows={6}
                 />
               </div>
-              <Button onClick={savePost} style={{ marginTop: 20 }}>
+              <Button
+                onClick={savePost}
+                style={{ marginTop: 20, marginRight: 25}}
+              >
                 Submit
               </Button>
             </div>
-            {/* <h5>Replies</h5> */}
           </Container>
         </PageContainer>
       </Content>

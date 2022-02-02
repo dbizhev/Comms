@@ -47,7 +47,7 @@ const AddChannel: React.FunctionComponent<IPageProps> = (props) => {
               type="text"
               placeholder="Channel name..."
             />
-            <div style={{ marginTop: 20 }}>
+            <div style={{ marginTop: 20, marginRight: 70 }}>
               <Button onClick={saveChannel}>Create</Button>
             </div>
           </Container>

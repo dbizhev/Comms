@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
+import { Button } from "./button";
 
 const CommentForm = () => {
   const [name, setName] = useState("");
@@ -28,26 +28,52 @@ const CommentForm = () => {
 
   return (
     <form onSubmit={(e) => handleCommentSubmission(e)}>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-        placeholder="name..."
-        style={{ marginBottom: 40 }}
-      />
-      <textarea
-        style={{ marginBottom: 20 }}
-        id="comment"
-        onChange={(e) => setContent(e.target.value)}
-        value={content}
-        name="comment"
-        placeholder="Comment..."
-      ></textarea>
-      <button type="submit" className="btn">
-        Submit
-      </button>
+      <div>
+        <input
+          onChange={(e) => setName(e.target.value)}
+          style={{
+            fontSize: 15,
+            height: 40,
+            width: 170,
+            borderRadius: 8,
+            marginLeft: 20,
+          }}
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Name"
+        />
+      </div>
+      <div
+        style={{
+          fontSize: 15,
+          paddingTop: 20,
+          borderRadius: 8,
+        }}
+      >
+        <textarea
+          onChange={(e) => setContent(e.target.value)}
+          style={{
+            marginLeft: 20,
+            borderRadius: 8,
+            fontSize: 15,
+            paddingTop: 20,
+          }}
+          id="comment"
+          name="comment"
+          placeholder="Type comment and hit send"
+          rows={6}
+        />
+      </div>
+      <Button
+        style={{
+          marginTop: 20,
+          marginRight: 45,
+        }}
+        type="submit"
+      >
+        Send
+      </Button>
     </form>
   );
 };

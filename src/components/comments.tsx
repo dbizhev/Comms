@@ -39,8 +39,11 @@ const Comments = ({ comments, id }: IComments) => {
 
   return (
     <div style={{ height: 50, overflowInline: "scroll" }}>
-      <h2>Join the discussion</h2>
+      <h5>Join the discussion</h5>
       <CommentForm />
+      <h5 style={{ marginTop: 50 }}>
+        {commentsList.length > 0 ? "Replies" : "No reply"}
+      </h5>
       <CommentList>
         {commentsList.length > 0 &&
           commentsList.map((comment: any) => {
