@@ -3,9 +3,10 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { Button } from "./button";
+import { getAuth } from "firebase/auth";
 
 const CommentForm = () => {
-  const [name, setName] = useState("");
+  const auth = getAuth();
   const [content, setContent] = useState("");
   const { post_id } = useParams<{ post_id: string }>();
 
@@ -17,10 +18,9 @@ const CommentForm = () => {
       comment: content,
       pId: post_id,
       time: new Date(),
-      name: name,
+      name: auth.currentUser?.displayName,
     };
     await addDoc(collection(db, "comments"), comment);
-    setName("");
     setContent("");
     (window as any).alert("Comment posted");
     setTimeout((window as any).location.reload(), 3000);
@@ -28,7 +28,7 @@ const CommentForm = () => {
 
   return (
     <form onSubmit={(e) => handleCommentSubmission(e)}>
-      <div>
+      {/* <div>
         <input
           onChange={(e) => setName(e.target.value)}
           style={{
@@ -43,7 +43,7 @@ const CommentForm = () => {
           name="name"
           placeholder="Name"
         />
-      </div>
+      </div> */}
       <div
         style={{
           fontSize: 15,

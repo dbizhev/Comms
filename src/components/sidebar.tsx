@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { query, getDocs, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { db } from "../config/firebase";
 import { styled } from "../stitches.config";
 import { Button } from "./button";
@@ -21,10 +21,19 @@ const LogoContainer = styled("div", {
   marginBottom: "50px",
 });
 
+const InboxItem = styled("h3", {
+  fontWeight: "normal",
+  "&:hover": {
+    color: "$black",
+    fontWeight: "bold",
+  },
+});
+
 const auth = getAuth();
 
 export default function Sidebar() {
   const [channelList, setChannelList] = useState<any>([]);
+  const history = useHistory();
 
   const logOut = () => {
     auth.signOut();
@@ -39,10 +48,14 @@ export default function Sidebar() {
       const data = item.data();
       allChannels.push(data);
     });
-    // const postComments = allChannels.filter((item, key) => {
-    //   return item.pId === id;
-    // });
-    setChannelList(allChannels);
+
+    const email = auth.currentUser?.email;
+    const domain = !email ? "gmail.com" : email.split("@").pop();
+    const allowedPosts = allChannels.filter(
+      (post) => post.email.split("@").pop() === domain
+    );
+
+    setChannelList(allowedPosts);
   }, []);
   console.log(channelList);
 
@@ -58,6 +71,9 @@ export default function Sidebar() {
           alt="logo"
         />
       </LogoContainer>
+      <div onClick={() => history.push(`/inbox`)}>
+        <InboxItem>INBOX- 0</InboxItem>
+      </div>
       <div>
         <h3>CHANNELS</h3>
       </div>
@@ -72,7 +88,7 @@ export default function Sidebar() {
             </Link>
           );
         })}
-      <div style={{ marginTop: 570 }}>
+      <div style={{ marginTop: 440 }}>
         <Button>
           <Link to={"/add-channel"}>Add channel</Link>
         </Button>

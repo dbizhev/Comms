@@ -9,16 +9,18 @@ import IPageProps from "../interfaces/page.interface";
 import { useParams } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { getAuth } from "firebase/auth";
 
 const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
+  const auth = getAuth();
   const { channel_id } = useParams<{ channel_id: string }>();
   const { name } = useParams<{ name: string }>();
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
-  const [author, setName] = useState("");
 
   const savePost = async (e: any) => {
     e.preventDefault();
+
     var uniqId = "id" + new Date().getTime();
     let post = {
       chId: channel_id,
@@ -26,7 +28,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       time: new Date(),
       title: subject,
       body: body,
-      author: author,
+      author: auth.currentUser?.displayName,
     };
     await addDoc(collection(db, "posts"), post);
     setSubject("");
@@ -45,26 +47,6 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
             <h1>{name} </h1>
             <div>
               <p>Post on {name}... </p>
-              <div
-                style={{
-                  marginTop: 50,
-                }}
-              >
-                <input
-                  onChange={(e) => setName(e.target.value)}
-                  style={{
-                    fontSize: 15,
-                    height: 40,
-                    width: 170,
-                    borderRadius: 8,
-                    marginLeft: 20,
-                  }}
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Name"
-                />
-              </div>
               <div
                 style={{
                   marginTop: 20,

@@ -2,6 +2,7 @@ import IRoute from "../interfaces/route.interface";
 import AddChannel from "../pages/AddChannel";
 import Channel from "../pages/Channel";
 import HomePage from "../pages/HomePage";
+import InboxPage from "../pages/Inbox";
 import LogInPage from "../pages/LoginPage";
 import PostChannel from "../pages/PostChannel";
 import PostReply from "../pages/PostReply";
@@ -40,6 +41,13 @@ const routes: IRoute[] = [
         exact: true,
         component: PostReply,
         name: 'Post Channel',
+        protected: true
+    },
+    {
+        path: '/inbox',
+        exact: true,
+        component: InboxPage,
+        name: 'Inbox',
         protected: true
     },
     {
