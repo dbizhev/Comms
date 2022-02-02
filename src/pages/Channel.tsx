@@ -34,7 +34,7 @@ const Info = styled("div", {
 const PostButton = styled("button", {
   border: "none",
   fontSize: "$2",
-//   padding: "$2 $3",
+  //   padding: "$2 $3",
   color: "$black",
   background: "$white",
   width: "100%",
@@ -102,7 +102,11 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
               })}
 
             <Button
-              style={{ marginTop: 400 }}
+              style={{
+                marginTop: 400,
+                backgroundColor: "#05473C",
+                color: "white",
+              }}
               onClick={() =>
                 history.push(`/channel/${channel_id}/${name}/post`)
               }

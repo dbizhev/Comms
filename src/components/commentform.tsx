@@ -68,7 +68,10 @@ const CommentForm = () => {
       <Button
         style={{
           marginTop: 20,
+          marginBottom: 20,
           marginRight: 45,
+          backgroundColor: "#05473C",
+          color: "white",
         }}
         type="submit"
       >

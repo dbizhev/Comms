@@ -108,9 +108,14 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
               </div>
               <Button
                 onClick={savePost}
-                style={{ marginTop: 20, marginRight: 25}}
+                style={{
+                  marginTop: 20,
+                  marginRight: 25,
+                  backgroundColor: "#05473C",
+                  color: "white",
+                }}
               >
-                Submit
+                Post
               </Button>
             </div>
           </Container>

@@ -20,6 +20,9 @@ const Italicized = styled("div", {
   marginTop: "10px",
   fontSize: "12px",
 });
+const CommentText = styled("p", {
+  wordWrap: "break-word",
+});
 
 const SingleComment = ({ comment }: any) => (
   <CommentContainer>
@@ -28,7 +31,7 @@ const SingleComment = ({ comment }: any) => (
         {comment.name} <span>commented</span>
       </Italicized>
     </CommentAuthor>
-    <p>{comment.comment}</p>
+    <CommentText>{comment.comment}</CommentText>
   </CommentContainer>
 );
 
@@ -61,6 +64,8 @@ const Comment = ({ comment, child, id }: any) => {
                 marginTop: 20,
                 marginRight: 45,
                 marginBottom: 20,
+                backgroundColor: "#05473C",
+                color: "white",
               }}
             >
               Reply
