@@ -53,7 +53,8 @@ export default function Sidebar() {
     <SidebarContainer>
       <LogoContainer>
         <img
-          src="https://www.google.com/url?sa=i&url=http%3A%2F%2Fpadtrader.ca%2Fcompare-properties&psig=AOvVaw2tlz6nVrMYf2l_rfXx8nuB&ust=1643802450502000&source=images&cd=vfe&ved=2ahUKEwjwgbW6t971AhUOXcAKHQJZBjsQjRx6BAgAEAk"
+          height={50}
+          src="https://4m4you.com/wp-content/uploads/2020/06/logo-placeholder.png"
           alt="logo"
         />
       </LogoContainer>
@@ -63,17 +64,20 @@ export default function Sidebar() {
       {channelList.length > 0 &&
         channelList.map((channel: any) => {
           return (
-            <Link to={`/channel/${channel.chId}/${channel.chName}`} key={channel.chId}>
+            <Link
+              to={`/channel/${channel.chId}/${channel.chName}`}
+              key={channel.chId}
+            >
               <SideBarItem>#{channel.chName}</SideBarItem>
             </Link>
           );
         })}
-      <div style={{ marginTop: 400 }}>
+      <div style={{ marginTop: 570 }}>
         <Button>
           <Link to={"/add-channel"}>Add channel</Link>
         </Button>
       </div>
-      <div style={{ marginTop: 50 }}>
+      <div style={{ marginTop: 30 }}>
         <Button onClick={logOut}>Signout</Button>
       </div>
     </SidebarContainer>

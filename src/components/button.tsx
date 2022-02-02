@@ -6,10 +6,11 @@ export const Button = styled("button", {
   padding: "$2 $3",
   border: "2px solid $black",
   color: "$black",
-  background:"$white",
+  background: "$white",
 
   "&:hover": {
     backgroundColor: "$white",
     color: "$black",
+    fontWeight: "bold",
   },
 });

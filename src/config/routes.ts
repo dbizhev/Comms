@@ -4,6 +4,7 @@ import Channel from "../pages/Channel";
 import HomePage from "../pages/HomePage";
 import LogInPage from "../pages/LoginPage";
 import PostChannel from "../pages/PostChannel";
+import PostReply from "../pages/PostReply";
 
 const routes: IRoute[] = [
     {
@@ -31,6 +32,13 @@ const routes: IRoute[] = [
         path: '/channel/:channel_id/:name/post',
         exact: true,
         component: PostChannel,
+        name: 'Post Channel',
+        protected: true
+    },
+    {
+        path: '/channel/:channel_id/:post_id/:post_name/comments',
+        exact: true,
+        component: PostReply,
         name: 'Post Channel',
         protected: true
     },

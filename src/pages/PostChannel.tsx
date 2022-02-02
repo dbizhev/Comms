@@ -88,7 +88,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
                 Submit
               </Button>
             </div>
-            <h5>Replies</h5>
+            {/* <h5>Replies</h5> */}
           </Container>
         </PageContainer>
       </Content>
