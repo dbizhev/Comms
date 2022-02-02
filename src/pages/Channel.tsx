@@ -34,7 +34,7 @@ const Info = styled("div", {
 const PostButton = styled("button", {
   border: "none",
   fontSize: "$2",
-  padding: "$2 $3",
+//   padding: "$2 $3",
   color: "$black",
   background: "$white",
   width: "100%",
@@ -94,9 +94,9 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                       }
                       key={post.pId}
                     >
-                      {post.title}
+                      {post.author}
                     </PostButton>
-                    <Info>{post.body}</Info>
+                    <Info>{post.title}</Info>
                   </PostCard>
                 );
               })}

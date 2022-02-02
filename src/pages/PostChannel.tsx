@@ -15,6 +15,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
   const { name } = useParams<{ name: string }>();
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
+  const [author, setName] = useState("");
 
   const savePost = async (e: any) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       time: new Date(),
       title: subject,
       body: body,
+      author: author,
     };
     await addDoc(collection(db, "posts"), post);
     setSubject("");
@@ -46,6 +48,26 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
               <div
                 style={{
                   marginTop: 50,
+                }}
+              >
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  style={{
+                    fontSize: 15,
+                    height: 40,
+                    width: 170,
+                    borderRadius: 8,
+                    marginLeft: 20,
+                  }}
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Name"
+                />
+              </div>
+              <div
+                style={{
+                  marginTop: 20,
                 }}
               >
                 <input
