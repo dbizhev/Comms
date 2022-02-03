@@ -9,9 +9,22 @@ const CommentForm = () => {
   const auth = getAuth();
   const [content, setContent] = useState("");
   const { post_id } = useParams<{ post_id: string }>();
+  const { post_name } = useParams<{ post_name: string }>();
+  const { channel_id } = useParams<{ channel_id: string }>();
 
   const handleCommentSubmission = async (e: any) => {
     e.preventDefault();
+    let post = {
+      chId: channel_id,
+      pId: post_id,
+      time: new Date(),
+      title: post_name,
+      comment: content,
+      body: "",
+      author: auth.currentUser?.displayName,
+      photoAuthor: auth.currentUser?.photoURL,
+      channel: post_name,
+    };
     var uniqId = "id" + new Date().getTime();
     let comment = {
       cId: uniqId,
@@ -20,6 +33,7 @@ const CommentForm = () => {
       time: new Date(),
       name: auth.currentUser?.displayName,
     };
+    await addDoc(collection(db, "posts"), post);
     await addDoc(collection(db, "comments"), comment);
     setContent("");
     (window as any).alert("Comment posted");

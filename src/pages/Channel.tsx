@@ -103,6 +103,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
             <Button
               style={{
                 marginTop: 400,
+                marginLeft: 650,
                 backgroundColor: "#05473C",
                 color: "white",
                 width: "200px",

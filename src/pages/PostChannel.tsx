@@ -30,6 +30,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       time: new Date(),
       title: subject,
       body: body,
+      comment:"",
       author: auth.currentUser?.displayName,
       photoAuthor: auth.currentUser?.photoURL,
       channel: name,

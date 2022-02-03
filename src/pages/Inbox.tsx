@@ -76,6 +76,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
       const data = item.data();
       allPosts.push(data);
     });
+    console.log(allPosts);
 
     setPostList(allPosts);
   }, []);
@@ -98,7 +99,10 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                   <NotificationCard>
                     <Avatar alt="" src={post.photoAuthor || ""} />
                     <Name>{post.author}</Name>
-                    <Time>on {post.time.toDate().toDateString()}</Time>
+                    <Time>
+                      {post.body === "" ? "replied " : "posted"} on{" "}
+                      {post.time.toDate().toString()}
+                    </Time>
                     <Post>
                       <PostChannel>{post.channel}</PostChannel>
                       <PostTitle>
