@@ -12,10 +12,11 @@ import { Link } from "react-router-dom";
 const NotificationCard = styled("div", {
   display: "flex",
   flexDirection: "row",
-  marginLeft: "405px",
-  width: "584px",
   marginBottom: "10px",
-  borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+  paddingBottom: "10px",
+  width: "100%",
+
+  borderBottom: "2px solid rgba(0, 0, 0, 0.05)",
 });
 
 const Time = styled("div", {
@@ -74,7 +75,7 @@ const MarkAsRead = styled("button", {
   background: "$white",
   width: "100%",
   height: "30px",
-  marginLeft: "15px",
+  marginLeft: "25px",
   marginTop: "15px",
 
   "&:hover": {
