@@ -21,6 +21,7 @@ const AddChannel: React.FunctionComponent<IPageProps> = (props) => {
       chId: uniqId,
       time: new Date(),
       email: auth.currentUser?.email || "",
+      author: auth.currentUser?.displayName,
     };
     await addDoc(collection(db, "channels"), channel);
     setChannelName("");
@@ -35,19 +36,21 @@ const AddChannel: React.FunctionComponent<IPageProps> = (props) => {
         <PageContainer>
           <Container>
             <h3>Add channel </h3>
-            <input
-              style={{
-                paddingLeft: 20,
-                fontSize: 15,
-                height: 40,
-                width: 170,
-                borderRadius: 8,
-              }}
-              onChange={(e) => setChannelName(e.target.value)}
-              type="text"
-              placeholder="Channel name..."
-            />
-            <div style={{ marginTop: 20, marginRight: 70 }}>
+            <div>
+              <input
+                style={{
+                  paddingLeft: 20,
+                  fontSize: 15,
+                  height: 40,
+                  width: 170,
+                  borderRadius: 8,
+                }}
+                onChange={(e) => setChannelName(e.target.value)}
+                type="text"
+                placeholder="Channel name..."
+              />
+            </div>
+            <div style={{ marginTop: 20 }}>
               <Button onClick={saveChannel}>Create</Button>
             </div>
           </Container>

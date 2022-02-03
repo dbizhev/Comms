@@ -106,6 +106,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                 marginTop: 400,
                 backgroundColor: "#05473C",
                 color: "white",
+                width: "200px",
               }}
               onClick={() =>
                 history.push(`/channel/${channel_id}/${name}/post`)
