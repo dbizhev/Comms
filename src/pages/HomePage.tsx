@@ -5,7 +5,6 @@ import { PageContainer } from "../components/pagecontainer";
 import Sidebar from "../components/sidebar";
 import IPageProps from "../interfaces/page.interface";
 
-
 const HomePage: React.FunctionComponent<IPageProps> = (props) => {
   return (
     <Container>

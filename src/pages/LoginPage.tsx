@@ -1,7 +1,17 @@
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Box } from "../components/box";
 import { Button } from "../components/button";
+import { db } from "../config/firebase";
 
 import IPageProps from "../interfaces/page.interface";
 import { SignInWithSocialMedia } from "../modules/auth";
@@ -17,10 +27,15 @@ const LogInPage: React.FunctionComponent<IPageProps> = (props) => {
     setAuthenticating(true);
 
     SignInWithSocialMedia()
-      .then((result) => {
-        console.log(result);
-        // addDoc(collection(db, "posts"), result.user);
-
+      .then(async (result) => {
+        const q = query(
+          collection(db, "users"),
+          where("uid", "==", result.user.providerData[0].uid)
+        );
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.size === 0) {
+          addDoc(collection(db, "users"), result.user.providerData[0]);
+        }
         history.push("/");
       })
       .catch((error) => {
