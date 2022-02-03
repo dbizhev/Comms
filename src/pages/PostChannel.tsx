@@ -81,6 +81,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
                     borderRadius: 8,
                     fontSize: 15,
                     paddingTop: 20,
+                    width:1000
                   }}
                   id="body"
                   name="body"

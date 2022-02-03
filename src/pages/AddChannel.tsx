@@ -51,7 +51,15 @@ const AddChannel: React.FunctionComponent<IPageProps> = (props) => {
               />
             </div>
             <div style={{ marginTop: 20 }}>
-              <Button onClick={saveChannel}>Create</Button>
+              <Button
+                style={{
+                  backgroundColor: "#05473C",
+                  color: "white",
+                }}
+                onClick={saveChannel}
+              >
+                Create
+              </Button>
             </div>
           </Container>
         </PageContainer>

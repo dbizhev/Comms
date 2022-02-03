@@ -31,7 +31,11 @@ const InboxItem = styled("h3", {
 
 const auth = getAuth();
 
-export default function Sidebar() {
+interface IsideBarProps {
+  inbox?: any;
+}
+
+export default function Sidebar({ inbox }: IsideBarProps) {
   const [channelList, setChannelList] = useState<any>([]);
   const history = useHistory();
 
@@ -72,7 +76,7 @@ export default function Sidebar() {
         />
       </LogoContainer>
       <div onClick={() => history.push(`/inbox`)}>
-        <InboxItem>INBOX- 0</InboxItem>
+        <InboxItem>INBOX- {inbox || "0"}</InboxItem>
       </div>
       <div>
         <h3>CHANNELS</h3>

@@ -18,9 +18,10 @@ const PostCard = styled("div", {
   marginBottom: "10px",
   borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
 });
+
 const Avatar = styled("div", {
-  height: "36px",
-  width: "36px",
+  height: "50px",
+  width: "67px",
   borderRadius: "50%",
   background: "Gray",
   marginBottom: "10px",
@@ -28,13 +29,12 @@ const Avatar = styled("div", {
 
 const Info = styled("div", {
   fontSize: "$2",
-  marginTop: "15px",
+  marginTop: "10px",
 });
 
 const PostButton = styled("button", {
   border: "none",
   fontSize: "$2",
-  //   padding: "$2 $3",
   color: "$black",
   background: "$white",
   width: "100%",
@@ -79,6 +79,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
         <PageContainer>
           <Container>
             <h3>Channel {name} </h3>
+            {postList.length === 0 && <h5>Create posts in {name}</h5>}
             {postList.length > 0 &&
               postList.map((post: any) => {
                 return (
@@ -86,6 +87,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                     <Avatar>
                       <img alt="" />
                     </Avatar>
+                    <Info>{post.author}</Info>
                     <PostButton
                       onClick={() =>
                         history.push(
@@ -94,13 +96,11 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                       }
                       key={post.pId}
                     >
-                      {post.author}
+                      {post.title}
                     </PostButton>
-                    <Info>{post.title}</Info>
                   </PostCard>
                 );
               })}
-
             <Button
               style={{
                 marginTop: 400,

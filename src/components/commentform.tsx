@@ -28,22 +28,6 @@ const CommentForm = () => {
 
   return (
     <form onSubmit={(e) => handleCommentSubmission(e)}>
-      {/* <div>
-        <input
-          onChange={(e) => setName(e.target.value)}
-          style={{
-            fontSize: 15,
-            height: 40,
-            width: 170,
-            borderRadius: 8,
-            marginLeft: 20,
-          }}
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Name"
-        />
-      </div> */}
       <div
         style={{
           fontSize: 15,
@@ -58,6 +42,7 @@ const CommentForm = () => {
             borderRadius: 8,
             fontSize: 15,
             paddingTop: 20,
+            width: 1000,
           }}
           id="comment"
           name="comment"
@@ -69,7 +54,6 @@ const CommentForm = () => {
         style={{
           marginTop: 20,
           marginBottom: 20,
-          marginRight: 45,
           backgroundColor: "#05473C",
           color: "white",
         }}
