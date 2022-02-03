@@ -69,7 +69,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                     <Name>{post.author}</Name>
                     <Time>
                       {post.body === "" ? "replied " : "posted"} on{" "}
-                      {post.time.toDate().toString()}
+                      {post.time.toDate().toString().substring(0, 25)}
                     </Time>
                     <Post>
                       <PostChannel>{post.channel}</PostChannel>

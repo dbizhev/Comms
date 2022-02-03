@@ -1,9 +1,7 @@
-import { addDoc, collection } from "firebase/firestore";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Box } from "../components/box";
 import { Button } from "../components/button";
-import { db } from "../config/firebase";
 
 import IPageProps from "../interfaces/page.interface";
 import { SignInWithSocialMedia } from "../modules/auth";
