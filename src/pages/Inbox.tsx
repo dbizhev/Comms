@@ -65,6 +65,25 @@ const Avatar = styled("img", {
   marginBottom: "10px",
 });
 
+const MarkAsRead = styled("button", {
+  borderRadius: "8px",
+  fontSize: "10px",
+  padding: "$2 $3",
+  border: "2px solid $black",
+  color: "$black",
+  background: "$white",
+  width: "100%",
+  height: "30px",
+  marginLeft: "15px",
+  marginTop: "15px",
+
+  "&:hover": {
+    backgroundColor: "$black",
+    color: "$white",
+    fontWeight: "bold",
+  },
+});
+
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   const [postList, setPostList] = useState<any>([]);
 
@@ -113,6 +132,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                         </Link>
                       </PostTitle>
                     </Post>
+                    <MarkAsRead>mark as read</MarkAsRead>
                   </NotificationCard>
                 );
               })}
