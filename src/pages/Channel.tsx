@@ -6,18 +6,19 @@ import { PageContainer } from "../components/pagecontainer";
 import Sidebar from "../components/sidebar";
 import IPageProps from "../interfaces/page.interface";
 
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { db } from "../config/firebase";
 import { styled } from "@stitches/react";
 import { Button } from "../components/button";
-
-const PostCard = styled("div", {
-  display: "flex",
-  flexDirection: "row",
-  width: "584px",
-  marginBottom: "10px",
-  borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
-});
+import {
+  NotificationCard,
+  Name,
+  Time,
+  Post,
+  PostTitle,
+  MarkAsRead,
+  PostChannel,
+} from "../components/listItems";
 
 const Avatar = styled("img", {
   height: "50px",
@@ -25,26 +26,6 @@ const Avatar = styled("img", {
   borderRadius: "50%",
   background: "Gray",
   marginBottom: "10px",
-});
-
-const Info = styled("div", {
-  fontSize: "$2",
-  marginTop: "10px",
-});
-
-const PostButton = styled("button", {
-  border: "none",
-  fontSize: "$2",
-  color: "$black",
-  background: "$white",
-  width: "100%",
-  marginBottom: "10px",
-
-  "&:hover": {
-    backgroundColor: "$white",
-    color: "$black",
-    fontWeight: "bold",
-  },
 });
 
 const Channel: React.FunctionComponent<IPageProps> = (props) => {
@@ -83,21 +64,33 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
             {postList.length > 0 &&
               postList.map((post: any) => {
                 return (
-                  <PostCard>
+                  <NotificationCard>
                     <Avatar alt="" src={post.photoAuthor || ""} />
-
-                    <Info>{post.author}</Info>
-                    <PostButton
+                    <Name>{post.author}</Name>
+                    <Time>
+                      {post.body === "" ? "replied " : "posted"} on{" "}
+                      {post.time.toDate().toString()}
+                    </Time>
+                    <Post>
+                      <PostChannel>{post.channel}</PostChannel>
+                      <PostTitle>
+                        <Link
+                          to={`/channel/${post.chId}/${post.pId}/${post.title}/comments`}
+                        >
+                          {post.title}
+                        </Link>
+                      </PostTitle>
+                    </Post>
+                    <MarkAsRead
                       onClick={() =>
                         history.push(
-                          `/channel/${channel_id}/${post.pId}/${post.title}/comments`
+                          `/channel/${post.chId}/${post.pId}/${post.title}/comments`
                         )
                       }
-                      key={post.pId}
                     >
-                      {post.title}
-                    </PostButton>
-                  </PostCard>
+                      join discussion
+                    </MarkAsRead>
+                  </NotificationCard>
                 );
               })}
             <Button
