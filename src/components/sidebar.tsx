@@ -31,11 +31,7 @@ const InboxItem = styled("h3", {
 
 const auth = getAuth();
 
-interface IsideBarProps {
-  inbox?: any;
-}
-
-export default function Sidebar({ inbox }: IsideBarProps) {
+export default function Sidebar() {
   const [channelList, setChannelList] = useState<any>([]);
   const history = useHistory();
 
@@ -43,6 +39,19 @@ export default function Sidebar({ inbox }: IsideBarProps) {
     auth.signOut();
     window.location.reload();
   };
+  const [postList, setPostList] = useState<any>([]);
+
+  const fetchPosts = useCallback(async () => {
+    const q = query(collection(db, "posts"));
+    const docs = await getDocs(q);
+    let allPosts: Array<any> = [];
+    docs.forEach((item: any) => {
+      const data = item.data();
+      allPosts.push(data);
+    });
+
+    setPostList(allPosts);
+  }, []);
 
   const fetchChannels = useCallback(async () => {
     const q = query(collection(db, "channels"));
@@ -65,7 +74,8 @@ export default function Sidebar({ inbox }: IsideBarProps) {
 
   useEffect(() => {
     fetchChannels();
-  }, [fetchChannels]);
+    fetchPosts();
+  }, [fetchChannels, fetchPosts]);
   return (
     <SidebarContainer>
       <LogoContainer>
@@ -76,7 +86,7 @@ export default function Sidebar({ inbox }: IsideBarProps) {
         />
       </LogoContainer>
       <div onClick={() => history.push(`/inbox`)}>
-        <InboxItem>INBOX- {inbox || "0"}</InboxItem>
+        <InboxItem>INBOX- {postList.length || "0"}</InboxItem>
       </div>
       <div>
         <h3>CHANNELS</h3>

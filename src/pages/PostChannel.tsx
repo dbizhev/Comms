@@ -18,6 +18,8 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
   const [subject, setSubject] = useState("");
   const [body, setBody] = useState("");
 
+  console.log(auth);
+
   const savePost = async (e: any) => {
     e.preventDefault();
 
@@ -29,6 +31,8 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       title: subject,
       body: body,
       author: auth.currentUser?.displayName,
+      photoAuthor: auth.currentUser?.photoURL,
+      channel: name,
     };
     await addDoc(collection(db, "posts"), post);
     setSubject("");
@@ -81,7 +85,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
                     borderRadius: 8,
                     fontSize: 15,
                     paddingTop: 20,
-                    width:1000
+                    width: 1000,
                   }}
                   id="body"
                   name="body"

@@ -19,9 +19,9 @@ const PostCard = styled("div", {
   borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
 });
 
-const Avatar = styled("div", {
+const Avatar = styled("img", {
   height: "50px",
-  width: "67px",
+  width: "50px",
   borderRadius: "50%",
   background: "Gray",
   marginBottom: "10px",
@@ -84,9 +84,8 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
               postList.map((post: any) => {
                 return (
                   <PostCard>
-                    <Avatar>
-                      <img alt="" />
-                    </Avatar>
+                    <Avatar alt="" src={post.photoAuthor || ""} />
+
                     <Info>{post.author}</Info>
                     <PostButton
                       onClick={() =>

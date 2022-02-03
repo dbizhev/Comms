@@ -7,38 +7,65 @@ import Sidebar from "../components/sidebar";
 import IPageProps from "../interfaces/page.interface";
 import { query, getDocs, collection } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const NotificationCard = styled("div", {
   display: "flex",
   flexDirection: "row",
+  marginLeft: "405px",
   width: "584px",
   marginBottom: "10px",
   borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
 });
 
-const InboxItem = styled("button", {
-  border: "none",
-  fontSize: "18px",
-  color: "$black",
-  background: "$white",
-  width: "100%",
+const Time = styled("div", {
+  fontSize: "13px",
   marginTop: "15px",
+  fontStyle: "italic",
+  marginLeft: "15px",
+  width: "100%",
+});
+const Name = styled("div", {
+  fontSize: "$2",
+  marginTop: "15px",
+  marginLeft: "15px",
+  fontWeight: "bold",
+  textTransform: "uppercase",
+  width: "100%",
+});
+const Post = styled("div", {
+  width: "100%",
+  marginLeft: "15px",
+  marginTop: "15px",
+});
 
+const PostChannel = styled("div", {
+  fontSize: "14px",
+  marginLeft: "15px",
+  fontWeight: "bold",
+  textTransform: "uppercase",
+  width: "100%",
+});
+
+const PostTitle = styled("div", {
+  fontSize: "11px",
+  marginLeft: "15px",
+  width: "100%",
+  overflow: "clip",
   "&:hover": {
-    backgroundColor: "$white",
     color: "$black",
     fontWeight: "bold",
   },
 });
-
-const Info = styled("div", {
-  fontSize: "$2",
-  marginTop: "15px",
+const Avatar = styled("img", {
+  height: "50px",
+  width: "50px",
+  borderRadius: "50%",
+  background: "Gray",
+  marginBottom: "10px",
 });
 
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
-  const history = useHistory();
   const [postList, setPostList] = useState<any>([]);
 
   const fetchPosts = useCallback(async () => {
@@ -59,7 +86,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   return (
     <Container>
       <Content>
-        <Sidebar inbox={postList.length} />
+        <Sidebar />
         <PageContainer>
           <Container>
             <h1>Inbox</h1>
@@ -69,19 +96,19 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
               postList.map((post: any) => {
                 return (
                   <NotificationCard>
-                    <InboxItem
-                      onClick={() =>
-                        history.push(
-                          `/channel/${post.chId}/${post.pId}/${post.title}/comments`
-                        )
-                      }
-                      key={post.pId}
-                    >
-                      Mark as read
-                    </InboxItem>
-                    <Info>
-                      {post.author} posted {post.title}
-                    </Info>
+                    <Avatar alt="" src={post.photoAuthor || ""} />
+                    <Name>{post.author}</Name>
+                    <Time>on {post.time.toDate().toDateString()}</Time>
+                    <Post>
+                      <PostChannel>{post.channel}</PostChannel>
+                      <PostTitle>
+                        <Link
+                          to={`/channel/${post.chId}/${post.pId}/${post.title}/comments`}
+                        >
+                          {post.title}
+                        </Link>
+                      </PostTitle>
+                    </Post>
                   </NotificationCard>
                 );
               })}
