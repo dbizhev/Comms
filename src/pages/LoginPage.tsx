@@ -1,12 +1,4 @@
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Box } from "../components/box";

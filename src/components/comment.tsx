@@ -49,7 +49,6 @@ const Comment = ({ comment, child, id }: any) => {
                 onClick={() => setShowReplyBox(false)}
                 style={{
                   marginTop: 20,
-                  marginRight: 45,
                   marginBottom: 20,
                 }}
               >
@@ -62,7 +61,6 @@ const Comment = ({ comment, child, id }: any) => {
               onClick={() => setShowReplyBox(true)}
               style={{
                 marginTop: 20,
-                marginRight: 45,
                 marginBottom: 20,
                 backgroundColor: "#05473C",
                 color: "white",
