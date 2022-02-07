@@ -8,7 +8,6 @@ const getNotifieableUsers = async (currentUserId) =>
   await db.collection("users").where("uid", "!=", currentUserId).get();
 
 const addToInbox = (user, post) => {
-  functions.logger.info("user => ", user, "post  => ", post);
   db.collection(`users/${user.uid}/inbox`)
     .doc(post.pId)
     .set(post)

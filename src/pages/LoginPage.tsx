@@ -1,4 +1,12 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Box } from "../components/box";
@@ -26,7 +34,10 @@ const LogInPage: React.FunctionComponent<IPageProps> = (props) => {
         );
         const querySnapshot = await getDocs(q);
         if (querySnapshot.size === 0) {
-          addDoc(collection(db, "users"), result.user.providerData[0]);
+          await setDoc(
+            doc(db, "users", result.user.providerData[0].uid),
+            result.user.providerData[0]
+          );
         }
         history.push("/");
       })
