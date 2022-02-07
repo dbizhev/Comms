@@ -15,11 +15,13 @@ const CommentContainer = styled("div", {
 const CommentAuthor = styled("div", {
   marginRight: "1200px",
 });
+
 const Italicized = styled("div", {
   fontStyle: "italic",
   marginTop: "10px",
   fontSize: "12px",
 });
+
 const CommentText = styled("p", {
   wordWrap: "break-word",
 });

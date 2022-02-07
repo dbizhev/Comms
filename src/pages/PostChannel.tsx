@@ -30,10 +30,11 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       time: new Date(),
       title: subject,
       body: body,
-      comment:"",
+      comment: "",
       author: auth.currentUser?.displayName,
       photoAuthor: auth.currentUser?.photoURL,
       channel: name,
+      AuthorId: auth.currentUser?.providerData[0].uid,
     };
     await addDoc(collection(db, "posts"), post);
     setSubject("");

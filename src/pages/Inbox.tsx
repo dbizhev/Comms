@@ -22,7 +22,7 @@ import { getAuth } from "firebase/auth";
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   const auth = getAuth();
   const [postList, setPostList] = useState<any>([]);
-
+  const [readPostList, setReadPostList] = useState<any>([]);
   const markAsDone = async (pId: string) => {
     var uniqId = "id" + new Date().getTime();
     let readObj = {
@@ -31,6 +31,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
       time: new Date(),
       reader: auth.currentUser?.email || "",
     };
+    // addDoc(collection(db, "readposts/" + auth.currentUser?.uid), readObj);
     await addDoc(collection(db, "readposts"), readObj);
     (window as any).alert("Thread marked as done");
     setTimeout((window as any).location.reload(), 3000);
@@ -44,14 +45,34 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
       const data = item.data();
       allPosts.push(data);
     });
-    console.log(allPosts);
 
-    setPostList(allPosts);
+    const unRead = allPosts.filter((item) => !readPostList.includes(item.pId));
+    console.log(unRead);
+    setPostList(unRead);
   }, []);
 
-  useEffect(() => {
+  const fetchReadPosts = useCallback(async () => {
+    const q = query(collection(db, "readposts"));
+    const docs = await getDocs(q);
+    let allPosts: Array<any> = [];
+    docs.forEach((item: any) => {
+      const data = item.data();
+      allPosts.push(data);
+    });
+    const allowedPosts = allPosts.filter(
+      (post) => post.reader === auth.currentUser?.email
+    );
+    const strippedPost = allowedPosts.map(function (obj) {
+      return obj.pId;
+    });
+    console.log(strippedPost);
     fetchPosts();
-  }, [fetchPosts]);
+    setReadPostList(allPosts);
+  }, [auth.currentUser?.email, fetchPosts]);
+
+  useEffect(() => {
+    fetchReadPosts();
+  }, [fetchPosts, fetchReadPosts]);
   return (
     <Container>
       <Content>
@@ -63,7 +84,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
             {postList.length > 0 &&
               postList.map((post: any) => {
                 return (
-                  <NotificationCard>
+                  <NotificationCard key={post.time}>
                     <Avatar alt="" src={post.photoAuthor || ""} />
                     <Name>{post.author}</Name>
                     <Time>

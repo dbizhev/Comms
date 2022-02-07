@@ -57,18 +57,13 @@ const Comments = ({ comments, id }: IComments) => {
       </h5>
       <CommentList>
         {commentsList.length > 0 &&
-          commentsList.map((comment: any) => {
+          commentsList.map((comment: any, index: any) => {
             let child;
             if (comment.id) {
               child = comments?.find((c) => comment.id === c.pId);
             }
             return (
-              <Comment
-                key={comment.id}
-                child={child}
-                comment={comment}
-                id={id}
-              />
+              <Comment key={index} child={child} comment={comment} id={id} />
             );
           })}
       </CommentList>

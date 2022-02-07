@@ -70,7 +70,6 @@ export default function Sidebar() {
 
     setChannelList(allowedPosts);
   }, []);
-  console.log(channelList);
 
   useEffect(() => {
     fetchChannels();
