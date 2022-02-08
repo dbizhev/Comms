@@ -41,16 +41,18 @@ export default function Sidebar() {
   };
   const [postList, setPostList] = useState<any>([]);
 
-  const fetchPosts = useCallback(async () => {
-    const q = query(collection(db, "posts"));
+  const fetchNotifications = useCallback(async () => {
+    const q = query(
+      collection(db, `users/${auth.currentUser?.providerData[0].uid}/inbox`)
+    );
     const docs = await getDocs(q);
-    let allPosts: Array<any> = [];
+    let allNotifications: Array<any> = [];
     docs.forEach((item: any) => {
       const data = item.data();
-      allPosts.push(data);
+      allNotifications.push(data);
     });
 
-    setPostList(allPosts);
+    setPostList(allNotifications);
   }, []);
 
   const fetchChannels = useCallback(async () => {
@@ -73,8 +75,8 @@ export default function Sidebar() {
 
   useEffect(() => {
     fetchChannels();
-    fetchPosts();
-  }, [fetchChannels, fetchPosts]);
+    fetchNotifications();
+  }, [fetchChannels, fetchNotifications]);
   return (
     <SidebarContainer>
       <LogoContainer>

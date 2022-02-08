@@ -48,7 +48,6 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
       allNotifications.push(data);
     });
 
-    console.log(allNotifications);
     setPostList(allNotifications);
   }, [auth.currentUser?.providerData]);
 
