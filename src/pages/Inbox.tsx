@@ -4,7 +4,7 @@ import { Content } from "../components/content";
 import { PageContainer } from "../components/pagecontainer";
 import Sidebar from "../components/sidebar";
 import IPageProps from "../interfaces/page.interface";
-import { query, getDocs, collection, addDoc } from "firebase/firestore";
+import { query, getDocs, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Link } from "react-router-dom";
 import {
@@ -23,17 +23,28 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   const auth = getAuth();
   const [postList, setPostList] = useState<any>([]);
 
+  // db.collection(`users/${user.uid}/inbox`)
+
   const markAsDone = async (pId: string) => {
-    var uniqId = "id" + new Date().getTime();
-    let readObj = {
-      readID: uniqId,
-      pId: pId,
-      time: new Date(),
-      reader: auth.currentUser?.email || "",
-    };
-    // addDoc(collection(db, "readposts/" + auth.currentUser?.uid), readObj);
-    await addDoc(collection(db, "readposts"), readObj);
-    (window as any).alert("Thread marked as done");
+    // var uniqId = "id" + new Date().getTime();
+    // let readObj = {
+    //   readID: uniqId,
+    //   pId: pId,
+    //   time: new Date(),
+    //   reader: auth.currentUser?.email || "",
+    // };
+    // // addDoc(collection(db, "readposts/" + auth.currentUser?.uid), readObj);
+    // await addDoc(collection(db, "readposts"), readObj);
+    const notifRef = doc(
+      db,
+      `users/${auth.currentUser?.providerData[0].uid}/inbox`,
+      pId
+    );
+
+    await updateDoc(notifRef, {
+      read: true,
+    });
+    (window as any).alert("Notification marked as done");
     setTimeout((window as any).location.reload(), 3000);
   };
 
@@ -48,7 +59,11 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
       allNotifications.push(data);
     });
 
-    setPostList(allNotifications);
+    const unRead = allNotifications.filter((item, key) => {
+      return item.read === false;
+    });
+
+    setPostList(unRead);
   }, [auth.currentUser?.providerData]);
 
   useEffect(() => {

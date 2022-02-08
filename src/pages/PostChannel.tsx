@@ -35,6 +35,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       photoAuthor: auth.currentUser?.photoURL,
       channel: name,
       AuthorId: auth.currentUser?.providerData[0].uid,
+      read: false,
     };
     await addDoc(collection(db, "posts"), post);
     setSubject("");
@@ -43,7 +44,6 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
     setTimeout((window as any).location.reload(), 3000);
   };
 
-  console.log(channel_id);
   return (
     <Container>
       <Content>

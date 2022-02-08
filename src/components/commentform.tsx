@@ -24,6 +24,8 @@ const CommentForm = () => {
       author: auth.currentUser?.displayName,
       photoAuthor: auth.currentUser?.photoURL,
       channel: post_name,
+      AuthorId: auth.currentUser?.providerData[0].uid,
+      read: false,
     };
     var uniqId = "id" + new Date().getTime();
     let comment = {
