@@ -14,6 +14,23 @@ const addToInbox = (user, post) => {
     .then((doc) => {});
 };
 
+// // Check the notification preference for the specific channel of that post, and notify/(not notify) in inbox
+// const checkNotificationPreference = (user, post) => {
+//   const preferences = user.notifyPreferences || {};
+
+//   const channelPreference = preferences[post.channelId];
+
+//   // If there is no valid channel preference, notify only if the user is mentioned in the post
+//   if (!channelPreference && post.mentions.includes(user.uid)) {
+//     return addToInbox(user, post);
+//   }
+
+//   // If preference is `all`, notify for every post
+//   if (channelPreference === "all") {
+//     return addToInbox(user, post);
+//   }
+// };
+
 exports.onPostCreated = functions.firestore
   .document("posts/{pId}")
   .onCreate(async (snap, context) => {

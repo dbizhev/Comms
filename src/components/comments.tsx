@@ -41,16 +41,6 @@ const Comments = ({ comments, id }: IComments) => {
   return (
     <div style={{ height: 50, overflowInline: "scroll" }}>
       <h5>Join the discussion</h5>
-      <Button
-        style={{
-          marginTop: 20,
-          marginBottom: 20,
-          backgroundColor: "white",
-          color: "#05473C",
-        }}
-      >
-        Mark as Read
-      </Button>
       <CommentForm />
       <h5 style={{ marginTop: 50 }}>
         {commentsList.length > 0 ? "Replies" : "No reply"}

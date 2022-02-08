@@ -23,18 +23,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   const auth = getAuth();
   const [postList, setPostList] = useState<any>([]);
 
-  // db.collection(`users/${user.uid}/inbox`)
-
   const markAsDone = async (pId: string) => {
-    // var uniqId = "id" + new Date().getTime();
-    // let readObj = {
-    //   readID: uniqId,
-    //   pId: pId,
-    //   time: new Date(),
-    //   reader: auth.currentUser?.email || "",
-    // };
-    // // addDoc(collection(db, "readposts/" + auth.currentUser?.uid), readObj);
-    // await addDoc(collection(db, "readposts"), readObj);
     const notifRef = doc(
       db,
       `users/${auth.currentUser?.providerData[0].uid}/inbox`,

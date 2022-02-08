@@ -23,6 +23,9 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
   const savePost = async (e: any) => {
     e.preventDefault();
 
+    var pattern = /\B@[a-z0-9_-]+/gi;
+    console.log(body.match(pattern));
+
     var uniqId = "id" + new Date().getTime();
     let post = {
       chId: channel_id,

@@ -51,8 +51,11 @@ export default function Sidebar() {
       const data = item.data();
       allNotifications.push(data);
     });
+    const unRead = allNotifications.filter((item, key) => {
+      return item.read === false;
+    });
 
-    setPostList(allNotifications);
+    setPostList(unRead);
   }, []);
 
   const fetchChannels = useCallback(async () => {
