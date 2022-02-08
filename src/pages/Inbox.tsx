@@ -22,7 +22,7 @@ import { getAuth } from "firebase/auth";
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   const auth = getAuth();
   const [postList, setPostList] = useState<any>([]);
-  const [readPostList, setReadPostList] = useState<any>([]);
+
   const markAsDone = async (pId: string) => {
     var uniqId = "id" + new Date().getTime();
     let readObj = {
@@ -37,42 +37,24 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
     setTimeout((window as any).location.reload(), 3000);
   };
 
-  const fetchPosts = useCallback(async () => {
-    const q = query(collection(db, "posts"));
-    const docs = await getDocs(q);
-    let allPosts: Array<any> = [];
-    docs.forEach((item: any) => {
-      const data = item.data();
-      allPosts.push(data);
-    });
-
-    const unRead = allPosts.filter((item) => !readPostList.includes(item.pId));
-    console.log(unRead);
-    setPostList(unRead);
-  }, []);
-
-  const fetchReadPosts = useCallback(async () => {
-    const q = query(collection(db, "readposts"));
-    const docs = await getDocs(q);
-    let allPosts: Array<any> = [];
-    docs.forEach((item: any) => {
-      const data = item.data();
-      allPosts.push(data);
-    });
-    const allowedPosts = allPosts.filter(
-      (post) => post.reader === auth.currentUser?.email
+  const fetchNotifications = useCallback(async () => {
+    const q = query(
+      collection(db, `users/${auth.currentUser?.providerData[0].uid}/inbox`)
     );
-    const strippedPost = allowedPosts.map(function (obj) {
-      return obj.pId;
+    const docs = await getDocs(q);
+    let allNotifications: Array<any> = [];
+    docs.forEach((item: any) => {
+      const data = item.data();
+      allNotifications.push(data);
     });
-    console.log(strippedPost);
-    fetchPosts();
-    setReadPostList(allPosts);
-  }, [auth.currentUser?.email, fetchPosts]);
+
+    console.log(allNotifications);
+    setPostList(allNotifications);
+  }, [auth.currentUser?.providerData]);
 
   useEffect(() => {
-    fetchReadPosts();
-  }, [fetchPosts, fetchReadPosts]);
+    fetchNotifications();
+  }, [fetchNotifications]);
   return (
     <Container>
       <Content>
