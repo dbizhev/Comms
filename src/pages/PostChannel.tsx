@@ -39,6 +39,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       channel: name,
       AuthorId: auth.currentUser?.providerData[0].uid,
       read: false,
+      mentions: body.match(pattern) || null,
     };
     await addDoc(collection(db, "posts"), post);
     setSubject("");

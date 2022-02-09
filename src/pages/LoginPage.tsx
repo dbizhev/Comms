@@ -28,16 +28,21 @@ const LogInPage: React.FunctionComponent<IPageProps> = (props) => {
 
     SignInWithSocialMedia()
       .then(async (result) => {
+        console.log(result);
         const q = query(
           collection(db, "users"),
           where("uid", "==", result.user.providerData[0].uid)
         );
         const querySnapshot = await getDocs(q);
         if (querySnapshot.size === 0) {
-          await setDoc(
-            doc(db, "users", result.user.providerData[0].uid),
-            result.user.providerData[0]
-          );
+          await setDoc(doc(db, "users", result.user.providerData[0].uid), {
+            displayName: result.user.providerData[0].displayName,
+            email: result.user.providerData[0].email,
+            photoURL: result.user.providerData[0].photoURL,
+            providerId: result.user.providerData[0].providerId,
+            uid: result.user.providerData[0].uid,
+            userName: `@${result.user.providerData[0].email.match(/^([^@]*)@/)[1]}`,
+          });
         }
         history.push("/");
       })
