@@ -1,12 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  query,
-  getDocs,
-  collection,
-  updateDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { query, getDocs, collection } from "firebase/firestore";
 import { Container } from "../components/container";
 import { Content } from "../components/content";
 import { PageContainer } from "../components/pagecontainer";
@@ -26,7 +19,6 @@ import {
   MarkAsRead,
   PostChannel,
 } from "../components/listItems";
-import { getAuth } from "firebase/auth";
 
 const Avatar = styled("img", {
   height: "50px",
@@ -38,7 +30,6 @@ const Avatar = styled("img", {
 
 const Channel: React.FunctionComponent<IPageProps> = (props) => {
   const history = useHistory();
-  const auth = getAuth();
 
   const { channel_id } = useParams<{ channel_id: string }>();
   const { name } = useParams<{ name: string }>();
@@ -58,19 +49,6 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
     });
     setPostList(posts);
   }, [channel_id]);
-
-  const onChangePreference = async (e: any) => {
-    await setDoc(
-      doc(
-        db,
-        `users/${auth.currentUser?.providerData[0].uid}/preference`,
-        channel_id
-      ),
-      { preference: e.target.value }
-    );
-
-    (window as any).alert("Preference Updated");
-  };
 
   useEffect(() => {
     fetchPosts();
@@ -128,24 +106,6 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
             >
               Create Post
             </Button>
-            <div
-              style={{
-                marginTop: 40,
-              }}
-              onChange={onChangePreference}
-            >
-              <input type="radio" value="All" name="preference" /> Get Notified
-              on All Posts
-              <input
-                style={{
-                  marginLeft: 40,
-                }}
-                type="radio"
-                value="Tagged"
-                name="preference"
-              />{" "}
-              Get Notified on Tagged Posts
-            </div>
           </Container>
         </PageContainer>
       </Content>

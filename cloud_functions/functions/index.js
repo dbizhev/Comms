@@ -7,31 +7,31 @@ const db = admin.firestore();
 const getNotifieableUsers = async (currentUserId) =>
   await db.collection("users").where("uid", "!=", currentUserId).get();
 
-// `users/${auth.currentUser?.providerData[0].uid}/preference`,
-
-const getUserPreference = async (currentUserId, chId) =>
-  await db.collection(`users/${currentUserId}/preference`).doc(chId).get();
+const getUserPreference = async (user, post) => {
+  return db
+    .collection(`users/${user.uid}/preference`)
+    .doc(post.pId)
+    .get()
+    .then((snapshot) => {
+      functions.logger.info("preference => ", snapshot.data().preference);
+      if (snapshot.data().preference === "All") {
+        addToInbox(user, post);
+      }
+      // return snapshot.data().preference;
+    })
+    .catch((reason) => {
+      functions.logger.info("error => ", reason);
+      // you should handle errors here
+    });
+};
 
 const addToInbox = (user, post) => {
   db.collection(`users/${user.uid}/inbox`)
     .doc(post.pId)
     .set(post)
-    .then((doc) => {});
-};
-
-const checkNotificationPreference = (user, post) => {
-  const preference = getNotifieableUsers(user.uid, post.chId);
-  functions.logger.info("preference => ", preference);
-
-  // const channelPreference = preferences[post.channelId];
-  // If there is no valid channel preference, notify only if the user is mentioned in the post
-  // if (!channelPreference && post.mentions.includes(user.uid)) {
-  //   return addToInbox(user, post);
-  // }
-  // If preference is `all`, notify for every post
-  // if (channelPreference === "all") {
-  //   return addToInbox(user, post);
-  // }
+    .then((doc) => {
+      functions.logger.info("inbox => ", doc.data());
+    });
 };
 
 exports.onPostCreated = functions.firestore
@@ -42,8 +42,8 @@ exports.onPostCreated = functions.firestore
     const users = await getNotifieableUsers(post.AuthorId);
 
     functions.logger.info("Posts => ", post, "users => ", users);
-    return users.forEach((doc) =>
-      // checkNotificationPreference(doc.data(), post)
-      addToInbox(doc.data(), post)
+    return users.forEach(
+      (doc) => getUserPreference(doc.data(), post)
+      // addToInbox(doc.data(), post)
     );
   });
