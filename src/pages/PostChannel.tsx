@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { collection, addDoc, getDocs, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { getAuth } from "firebase/auth";
+import defaultStyle from "../components/mentions/defaultStyle";
 
 const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
   const auth = getAuth();
@@ -111,17 +112,11 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
                 fontSize: 15,
                 paddingTop: 20,
                 borderRadius: 8,
+                width: "90%",
               }}
             >
               <MentionsInput
-                style={{
-                  marginLeft: 20,
-                  borderRadius: 8,
-                  fontSize: 15,
-                  paddingTop: 20,
-                  width: "90%",
-                  height: "100px",
-                }}
+                style={defaultStyle}
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
               >

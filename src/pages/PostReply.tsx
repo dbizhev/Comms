@@ -1,13 +1,5 @@
 import { getAuth } from "firebase/auth";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Comments from "../components/comments";
