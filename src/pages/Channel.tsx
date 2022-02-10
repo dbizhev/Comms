@@ -19,6 +19,8 @@ import {
   MarkAsRead,
   PostChannel,
 } from "../components/listItems";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Avatar = styled("img", {
   height: "50px",
@@ -26,6 +28,7 @@ const Avatar = styled("img", {
   borderRadius: "50%",
   background: "Gray",
   marginBottom: "10px",
+  margin: "10px",
 });
 
 const Channel: React.FunctionComponent<IPageProps> = (props) => {
@@ -58,8 +61,19 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
       <Content>
         <Sidebar />
         <PageContainer>
-          <Container>
-            <h3>Channel {name} </h3>
+          <h3> #{name} </h3>
+          <Button
+            style={{
+              backgroundColor: "#05473C",
+              color: "white",
+              width: "200px",
+              position: "relative",
+            }}
+            onClick={() => history.push(`/channel/${channel_id}/${name}/post`)}
+          >
+            <FontAwesomeIcon icon={faPlus} /> New Post in {name}
+          </Button>
+          <Container style={{ marginTop: 50, height: 500 }}>
             {postList.length === 0 && <h5>Create posts in {name}</h5>}
             {postList.length > 0 &&
               postList.map((post: any) => {
@@ -82,6 +96,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                       </PostTitle>
                     </Post>
                     <MarkAsRead
+                      style={{ marginRight: "10px" }}
                       onClick={() =>
                         history.push(
                           `/channel/${post.chId}/${post.pId}/${post.title}/comments`
@@ -93,19 +108,6 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                   </NotificationCard>
                 );
               })}
-            <Button
-              style={{
-                marginTop: 400,
-                backgroundColor: "#05473C",
-                color: "white",
-                width: "200px",
-              }}
-              onClick={() =>
-                history.push(`/channel/${channel_id}/${name}/post`)
-              }
-            >
-              Create Post
-            </Button>
           </Container>
         </PageContainer>
       </Content>

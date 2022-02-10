@@ -3,11 +3,12 @@ import { styled } from "@stitches/react";
 export const NotificationCard = styled("div", {
   display: "flex",
   flexDirection: "row",
-  marginBottom: "10px",
-  paddingBottom: "10px",
-  width: "100%",
-
+  width: "90%",
+  borderRadius: "8px",
   borderBottom: "2px solid rgba(0, 0, 0, 0.05)",
+  "&:hover": {
+    backgroundColor: "#D3D3D3",
+  },
 });
 
 export const Time = styled("div", {

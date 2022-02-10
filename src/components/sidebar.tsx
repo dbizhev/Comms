@@ -1,8 +1,9 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 import { query, getDocs, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import Badge from "react-simple-badges";
 import { db } from "../config/firebase";
 import { styled } from "../stitches.config";
 import { Button } from "./button";
@@ -28,6 +29,16 @@ const InboxItem = styled("h3", {
   "&:hover": {
     color: "$black",
     fontWeight: "bold",
+    cursor: "pointer",
+  },
+});
+
+const InboxItemNew = styled("h2", {
+  fontWeight: "bold",
+  "&:hover": {
+    color: "$black",
+    fontWeight: "bold",
+    cursor: "pointer",
   },
 });
 
@@ -91,23 +102,15 @@ export default function Sidebar() {
           alt="logo"
         />
       </LogoContainer>
-      <div onClick={() => history.push(`/inbox`)}>
-        <span>INBOX</span>
-        {postList.length ? (
-          <Badge
-            style={{
-              alignItems: "center",
-              marginLeft: 50,
-              borderRadius: 5,
-            }}
-            name="inbox"
-            label={postList.length}
-            backgroundColor="#FF0000"
-          />
-        ) : (
-          <span style={{ alignItems: "center", marginLeft: 50 }}>0</span>
-        )}
-      </div>
+      {postList.length ? (
+        <InboxItemNew onClick={() => history.push(`/inbox`)}>
+          INBOX - {postList.length}
+        </InboxItemNew>
+      ) : (
+        <InboxItem onClick={() => history.push(`/inbox`)}>
+          INBOX - {postList.length}
+        </InboxItem>
+      )}
       <div>
         <h3>CHANNELS</h3>
       </div>
@@ -124,11 +127,15 @@ export default function Sidebar() {
         })}
       <div style={{ marginTop: 440 }}>
         <Button>
-          <Link to={"/add-channel"}>Add channel</Link>
+          <Link to={"/add-channel"}>
+            <FontAwesomeIcon icon={faPlus} /> New Channel
+          </Link>
         </Button>
       </div>
       <div style={{ marginTop: 30 }}>
-        <Button onClick={logOut}>Signout</Button>
+        <Button onClick={logOut}>
+          <FontAwesomeIcon icon={faSignOut} />
+        </Button>
       </div>
     </SidebarContainer>
   );

@@ -70,7 +70,11 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
               postList.map((post: any) => {
                 return (
                   <NotificationCard key={post.time}>
-                    <Avatar alt="" src={post.photoAuthor || ""} />
+                    <Avatar
+                      style={{ marginBottom: "10px", margin: "10px" }}
+                      alt=""
+                      src={post.photoAuthor || ""}
+                    />
                     <Name>{post.author}</Name>
                     <Time>
                       {post.body === "" ? "replied " : "posted"} on{" "}
@@ -87,7 +91,10 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                       </PostTitle>
                     </Post>
                     {post.replyRequest && <span>Reply Requested</span>}
-                    <MarkAsRead onClick={() => markAsDone(post.pId)}>
+                    <MarkAsRead
+                      style={{ marginRight: "10px" }}
+                      onClick={() => markAsDone(post.pId)}
+                    >
                       mark as done
                     </MarkAsRead>
                   </NotificationCard>

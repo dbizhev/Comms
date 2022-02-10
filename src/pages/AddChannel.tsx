@@ -42,8 +42,7 @@ const AddChannel: React.FunctionComponent<IPageProps> = (props) => {
                   paddingLeft: 20,
                   fontSize: 15,
                   height: 40,
-                  width: 170,
-                  borderRadius: 8,
+                  width: 270,
                 }}
                 onChange={(e) => setChannelName(e.target.value)}
                 type="text"

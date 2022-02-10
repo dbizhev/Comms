@@ -3,6 +3,13 @@ import React, { useState } from "react";
 import { Button } from "./button";
 import CommentForm from "./commentform";
 
+const NotificationCard = styled("div", {
+  display: "flex",
+  flexDirection: "row",
+  width: "25%",
+  borderRadius: "8px",
+});
+
 const CommentContainer = styled("div", {
   backgroundColor: "$white",
   boxShadow: "3px 3px 3px 3px $vibrantGreen",
@@ -13,7 +20,8 @@ const CommentContainer = styled("div", {
 });
 
 const CommentAuthor = styled("div", {
-  marginRight: "1200px",
+  marginRight: "120px",
+  marginTop: "5px",
 });
 
 const Italicized = styled("div", {
@@ -26,13 +34,30 @@ const CommentText = styled("p", {
   wordWrap: "break-word",
 });
 
+const Avatar = styled("img", {
+  height: "26px",
+  width: "26px",
+  borderRadius: "50%",
+  background: "Gray",
+  marginBottom: "10px",
+  margin: "10px",
+});
+
 const SingleComment = ({ comment }: any) => (
   <CommentContainer>
-    <CommentAuthor>
-      <Italicized>
-        {comment.name} <span>commented</span>
-      </Italicized>
-    </CommentAuthor>
+    <NotificationCard>
+      <Avatar
+        style={{ marginBottom: "10px", margin: "10px" }}
+        alt=""
+        src={comment.photoAuthor || ""}
+      />
+      <CommentAuthor>
+        <Italicized>
+          {comment.name} <span>commented</span>
+        </Italicized>
+      </CommentAuthor>
+    </NotificationCard>
+
     <CommentText>{comment.comment}</CommentText>
   </CommentContainer>
 );

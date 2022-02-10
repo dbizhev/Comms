@@ -58,27 +58,29 @@ const PostReply = () => {
       <Content>
         <Sidebar />
         <PageContainer>
-          <Container>
-            <div>
-              <h1>{post_name}</h1>
-              <div
+          <div style={{ position: "relative" }}>
+            <h1>{post_name}</h1>
+            <div
+              style={{
+                marginTop: 40,
+              }}
+              onChange={onChangePreference}
+            >
+              <input type="radio" value="All" name="preference" /> Get All
+              Notifications
+              <input
                 style={{
-                  marginTop: 40,
+                  marginLeft: 40,
                 }}
-                onChange={onChangePreference}
-              >
-                <input type="radio" value="All" name="preference" /> Get All
-                Notifications
-                <input
-                  style={{
-                    marginLeft: 40,
-                  }}
-                  type="radio"
-                  value="Tagged"
-                  name="preference"
-                />
-                Get Tagged Notifications
-              </div>
+                type="radio"
+                value="Tagged"
+                name="preference"
+              />
+              Get Tagged Notifications
+            </div>
+          </div>
+          <Container style={{ height: 500, overflow: "scroll" }}>
+            <div>
               <Comments id={post_id} />
             </div>
           </Container>

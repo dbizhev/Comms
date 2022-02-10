@@ -36,6 +36,8 @@ const CommentForm = () => {
       pId: post_id,
       time: new Date(),
       name: auth.currentUser?.displayName,
+      photoAuthor: auth.currentUser?.photoURL,
+      AuthorId: auth.currentUser?.providerData[0].uid,
     };
     await addDoc(collection(db, "posts"), post);
     await addDoc(collection(db, "comments"), comment);
@@ -60,7 +62,7 @@ const CommentForm = () => {
             borderRadius: 8,
             fontSize: 15,
             paddingTop: 20,
-            width: 1000,
+            width: "1200px",
           }}
           id="comment"
           name="comment"

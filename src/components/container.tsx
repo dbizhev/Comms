@@ -8,4 +8,6 @@ export const Container = styled("div", {
   color: "$black",
   background: "$white",
   alignItems: "flex-start",
+  height: "700px",
+  overflow: "scroll",
 });

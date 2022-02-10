@@ -38,10 +38,12 @@ const Comments = ({ comments, id }: IComments) => {
   console.log(commentsList);
 
   return (
-    <div style={{ height: 50, overflowInline: "scroll" }}>
-      <h5>Join the discussion</h5>
-      <CommentForm />
-      <h5 style={{ marginTop: 50 }}>
+    <div style={{ height: 500, overflowInline: "scroll" }}>
+      <div style={{ marginLeft: 50 }}>
+        <h5>Join the discussion</h5>
+        <CommentForm />
+      </div>
+      <h5 style={{ marginTop: 50, marginLeft: 50 }}>
         {commentsList.length > 0 ? "Replies" : "No reply"}
       </h5>
       <CommentList>
