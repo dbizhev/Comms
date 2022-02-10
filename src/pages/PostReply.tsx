@@ -79,11 +79,9 @@ const PostReply = () => {
               Get Tagged Notifications
             </div>
           </div>
-          <Container style={{ height: 500, overflow: "scroll" }}>
-            <div>
-              <Comments id={post_id} />
-            </div>
-          </Container>
+          <div style={{ height: 800, overflow: "scroll" }}>
+            <Comments id={post_id} />
+          </div>
         </PageContainer>
       </Content>
     </Container>

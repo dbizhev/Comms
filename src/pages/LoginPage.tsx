@@ -41,7 +41,13 @@ const LogInPage: React.FunctionComponent<IPageProps> = (props) => {
             photoURL: result.user.providerData[0].photoURL,
             providerId: result.user.providerData[0].providerId,
             uid: result.user.providerData[0].uid,
-            userName: `@${result.user.providerData[0].email.match(/^([^@]*)@/)[1]}`,
+            id: result.user.providerData[0].uid,
+            display: `@${
+              result.user.providerData[0].email.match(/^([^@]*)@/)[1]
+            }`,
+            userName: `@${
+              result.user.providerData[0].email.match(/^([^@]*)@/)[1]
+            }`,
           });
         }
         history.push("/");

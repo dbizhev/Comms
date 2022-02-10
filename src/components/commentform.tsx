@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import React, { useCallback, useEffect, useState } from "react";
+import { collection, addDoc, getDocs, query } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
+import { MentionsInput, Mention } from "react-mentions";
 import { Button } from "./button";
 import { getAuth } from "firebase/auth";
+import defaultStyle from "./mentions/defaultStyle";
 
 const CommentForm = () => {
   const auth = getAuth();
@@ -11,6 +13,38 @@ const CommentForm = () => {
   const { post_id } = useParams<{ post_id: string }>();
   const { post_name } = useParams<{ post_name: string }>();
   const { channel_id } = useParams<{ channel_id: string }>();
+
+  const [userList, setUserList] = useState<any>([]);
+
+  const fetchUsers = useCallback(async () => {
+    const q = query(collection(db, "users"));
+    const docs = await getDocs(q);
+    let allUsers: Array<any> = [];
+    docs.forEach((item: any) => {
+      const data = item.data();
+      allUsers.push(data);
+    });
+
+    const strippedUsers = allUsers.map(
+      ({
+        displayName,
+        email,
+        photoURL,
+        providerId,
+        userName,
+        uid,
+        ...rest
+      }) => {
+        return rest;
+      }
+    );
+
+    setUserList(strippedUsers);
+  }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleCommentSubmission = async (e: any) => {
     var pattern = /\B@[@a-z0-9_-]+/gi;
@@ -53,22 +87,24 @@ const CommentForm = () => {
           fontSize: 15,
           paddingTop: 20,
           borderRadius: 8,
+          width: "90%",
         }}
       >
-        <textarea
+        <MentionsInput
+          style={defaultStyle}
+          // style={{
+          //   marginLeft: 20,
+          //   borderRadius: 8,
+          //   fontSize: 15,
+          //   paddingTop: 20,
+          //   width: "90%",
+          //   height: "100px",
+          // }}
+          value={content}
           onChange={(e) => setContent(e.target.value)}
-          style={{
-            marginLeft: 20,
-            borderRadius: 8,
-            fontSize: 15,
-            paddingTop: 20,
-            width: "1200px",
-          }}
-          id="comment"
-          name="comment"
-          placeholder="Type comment and hit send"
-          rows={6}
-        />
+        >
+          <Mention trigger="@" data={userList} markup="@__display__" />
+        </MentionsInput>
       </div>
       <Button
         style={{

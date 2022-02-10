@@ -29,9 +29,21 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       allUsers.push(data);
     });
 
-    console.log(allUsers);
+    const strippedUsers = allUsers.map(
+      ({
+        displayName,
+        email,
+        photoURL,
+        providerId,
+        userName,
+        uid,
+        ...rest
+      }) => {
+        return rest;
+      }
+    );
 
-    setUserList(allUsers);
+    setUserList(strippedUsers);
   }, []);
 
   useEffect(() => {
@@ -71,65 +83,63 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       <Content>
         <Sidebar />
         <PageContainer>
-          <Container>
-            <h1>{name} </h1>
-            <div>
-              <p>Post on {name}... </p>
-              <div
-                style={{
-                  marginTop: 20,
-                }}
-              >
-                <input
-                  onChange={(e) => setSubject(e.target.value)}
-                  style={{
-                    fontSize: 15,
-                    height: 40,
-                    width: 170,
-                    borderRadius: 8,
-                    marginLeft: 20,
-                  }}
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  placeholder="Subject"
-                />
-              </div>
-              <div
+          <h1>{name} </h1>
+          <div>
+            <p>Post on {name}... </p>
+            <div
+              style={{
+                marginTop: 20,
+              }}
+            >
+              <input
+                onChange={(e) => setSubject(e.target.value)}
                 style={{
                   fontSize: 15,
-                  paddingTop: 20,
+                  height: 40,
+                  width: 170,
                   borderRadius: 8,
+                  marginLeft: 20,
                 }}
-              >
-                <textarea
-                  onChange={(e) => setBody(e.target.value)}
-                  style={{
-                    marginLeft: 20,
-                    borderRadius: 8,
-                    fontSize: 15,
-                    paddingTop: 20,
-                    width: 1000,
-                  }}
-                  id="body"
-                  name="body"
-                  placeholder="Body"
-                  rows={6}
-                />
-              </div>
-              <Button
-                onClick={savePost}
-                style={{
-                  marginTop: 20,
-                  marginRight: 25,
-                  backgroundColor: "#05473C",
-                  color: "white",
-                }}
-              >
-                Post
-              </Button>
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Subject"
+              />
             </div>
-          </Container>
+            <div
+              style={{
+                fontSize: 15,
+                paddingTop: 20,
+                borderRadius: 8,
+              }}
+            >
+              <MentionsInput
+                style={{
+                  marginLeft: 20,
+                  borderRadius: 8,
+                  fontSize: 15,
+                  paddingTop: 20,
+                  width: "90%",
+                  height: "100px",
+                }}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+              >
+                <Mention trigger="@" data={userList} markup="@__display__" />
+              </MentionsInput>
+            </div>
+            <Button
+              onClick={savePost}
+              style={{
+                marginTop: 20,
+                marginRight: 25,
+                backgroundColor: "#05473C",
+                color: "white",
+              }}
+            >
+              Post
+            </Button>
+          </div>
         </PageContainer>
       </Content>
     </Container>

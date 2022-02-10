@@ -4,7 +4,6 @@ import { styled } from "@stitches/react";
 import { db } from "../config/firebase";
 import CommentForm from "./commentform";
 import Comment from "./comment";
-import { Button } from "./button";
 
 const CommentList = styled("div", {
   marginBottom: "20px",
