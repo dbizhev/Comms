@@ -18,6 +18,20 @@ import {
   PostChannel,
 } from "../components/listItems";
 import { getAuth } from "firebase/auth";
+import { styled } from "@stitches/react";
+
+const ReplyRequested = styled("button", {
+  borderRadius: "8px",
+  fontSize: "10px",
+  padding: "$2 $3",
+  color: "$white",
+  background: "red",
+  width: "100%",
+  height: "30px",
+  marginLeft: "25px",
+  marginTop: "15px",
+  border: "none",
+});
 
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
   const auth = getAuth();
@@ -90,7 +104,11 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                         </Link>
                       </PostTitle>
                     </Post>
-                    {post.replyRequest && <span>Reply Requested</span>}
+                    {post.replyRequest && (
+                      <ReplyRequested style={{ marginRight: "10px" }}>
+                        Reply Requested
+                      </ReplyRequested>
+                    )}
                     <MarkAsRead
                       style={{ marginRight: "10px" }}
                       onClick={() => markAsDone(post.pId)}
