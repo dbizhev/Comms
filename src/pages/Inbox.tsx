@@ -86,6 +86,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                         </Link>
                       </PostTitle>
                     </Post>
+                    {post.replyRequest && <span>Reply Requested</span>}
                     <MarkAsRead onClick={() => markAsDone(post.pId)}>
                       mark as done
                     </MarkAsRead>

@@ -7,4 +7,5 @@ export const Container = styled("div", {
   minHeight: "100vh",
   color: "$black",
   background: "$white",
+  alignItems: "flex-start",
 });

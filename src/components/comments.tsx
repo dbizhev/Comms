@@ -26,7 +26,6 @@ const Comments = ({ comments, id }: IComments) => {
       const data = item.data();
       allComments.push(data);
     });
-    console.log(allComments, id);
     const postComments = allComments.filter((item, key) => {
       return item.pId === id;
     });

@@ -13,6 +13,7 @@ const CommentForm = () => {
   const { channel_id } = useParams<{ channel_id: string }>();
 
   const handleCommentSubmission = async (e: any) => {
+    var pattern = /\B@[@a-z0-9_-]+/gi;
     e.preventDefault();
     let post = {
       chId: channel_id,
@@ -26,6 +27,7 @@ const CommentForm = () => {
       channel: post_name,
       AuthorId: auth.currentUser?.providerData[0].uid,
       read: false,
+      mentions: content.match(pattern) || null,
     };
     var uniqId = "id" + new Date().getTime();
     let comment = {

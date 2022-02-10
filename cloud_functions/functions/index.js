@@ -13,12 +13,22 @@ const getUserPreference = async (user, post) => {
     .doc(post.pId)
     .get()
     .then((snapshot) => {
-      functions.logger.info("preference => ", snapshot.data().preference);
-      if (snapshot.data().preference === "All") {
+      if (!snapshot.data() || snapshot.data().preference === "All") {
         addToInbox(user, post);
       }
-      if (post.mentions.includes(user.userName)) {
-        return addToInbox(user, post);
+
+      if (!snapshot.data() || post.mentions.includes(user.userName)) {
+        return post.mentions.forEach((mention) => {
+          functions.logger.info("atss => ", mention);
+          functions.logger.info("atss len => ", mention.split("@").length);
+          if (mention.split("@").length - 1 === 2) {
+            post.replyRequest = true;
+            addToInbox(user, post);
+          } else {
+            post.replyRequest = false;
+            addToInbox(user, post);
+          }
+        });
       }
     })
     .catch((reason) => {
@@ -30,9 +40,7 @@ const addToInbox = (user, post) => {
   db.collection(`users/${user.uid}/inbox`)
     .doc(post.pId)
     .set(post)
-    .then((doc) => {
-      functions.logger.info("inbox => ", doc.data());
-    });
+    .then((doc) => {});
 };
 
 exports.onPostCreated = functions.firestore
@@ -43,8 +51,5 @@ exports.onPostCreated = functions.firestore
     const users = await getNotifieableUsers(post.AuthorId);
 
     functions.logger.info("Posts => ", post, "users => ", users);
-    return users.forEach(
-      (doc) => getUserPreference(doc.data(), post)
-      // addToInbox(doc.data(), post)
-    );
+    return users.forEach((doc) => getUserPreference(doc.data(), post));
   });

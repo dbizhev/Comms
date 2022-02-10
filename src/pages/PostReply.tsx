@@ -1,6 +1,14 @@
 import { getAuth } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import React from "react";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
+import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Comments from "../components/comments";
 import { Container } from "../components/container";
@@ -26,6 +34,25 @@ const PostReply = () => {
 
     (window as any).alert("Preference Updated");
   };
+
+  const fetchPreference = useCallback(async () => {
+    const notifRef = doc(
+      db,
+      `users/${auth.currentUser?.providerData[0].uid}/preference`,
+      post_id
+    );
+    const docs = await getDoc(notifRef);
+    // let pref: Array<any> = [];
+    // docs.forEach((item: any) => {
+    //   const data = item.data();
+    //   pref.push(data);
+    // });
+    console.log(docs.get);
+  }, [auth.currentUser?.providerData, post_id]);
+
+  useEffect(() => {
+    fetchPreference();
+  }, [fetchPreference]);
   return (
     <Container>
       <Content>
@@ -41,6 +68,7 @@ const PostReply = () => {
                 onChange={onChangePreference}
               >
                 <input type="radio" value="All" name="preference" /> Get All
+                Notifications
                 <input
                   style={{
                     marginLeft: 40,
@@ -48,8 +76,8 @@ const PostReply = () => {
                   type="radio"
                   value="Tagged"
                   name="preference"
-                />{" "}
-                Tagged
+                />
+                Get Tagged Notifications
               </div>
               <Comments id={post_id} />
             </div>

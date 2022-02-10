@@ -2,6 +2,7 @@ import { getAuth } from "firebase/auth";
 import { query, getDocs, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Badge from "react-simple-badges";
 import { db } from "../config/firebase";
 import { styled } from "../stitches.config";
 import { Button } from "./button";
@@ -14,6 +15,7 @@ const SidebarContainer = styled("div", {
   marginTop: "20px",
   marginBottom: "20px",
   color: "$black",
+  height: "auto",
 });
 
 const LogoContainer = styled("div", {
@@ -90,7 +92,21 @@ export default function Sidebar() {
         />
       </LogoContainer>
       <div onClick={() => history.push(`/inbox`)}>
-        <InboxItem>INBOX- {postList.length || "0"}</InboxItem>
+        <span>INBOX</span>
+        {postList.length ? (
+          <Badge
+            style={{
+              alignItems: "center",
+              marginLeft: 50,
+              borderRadius: 5,
+            }}
+            name="inbox"
+            label={postList.length}
+            backgroundColor="#FF0000"
+          />
+        ) : (
+          <span style={{ alignItems: "center", marginLeft: 50 }}>0</span>
+        )}
       </div>
       <div>
         <h3>CHANNELS</h3>
