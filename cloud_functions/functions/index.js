@@ -17,11 +17,12 @@ const getUserPreference = async (user, post) => {
       if (snapshot.data().preference === "All") {
         addToInbox(user, post);
       }
-      // return snapshot.data().preference;
+      if (post.mentions.includes(user.userName)) {
+        return addToInbox(user, post);
+      }
     })
     .catch((reason) => {
       functions.logger.info("error => ", reason);
-      // you should handle errors here
     });
 };
 
