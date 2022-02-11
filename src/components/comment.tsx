@@ -21,7 +21,6 @@ const CommentContainer = styled("div", {
 
 const CommentAuthor = styled("div", {
   marginRight: "120px",
-  marginTop: "5px",
 });
 
 const Italicized = styled("div", {
@@ -53,7 +52,8 @@ const SingleComment = ({ comment }: any) => (
       />
       <CommentAuthor>
         <Italicized>
-          {comment.name} <span>commented</span>
+          {comment.name} commented on{" "}
+          {comment.time.toDate().toString().substring(0, 25)}
         </Italicized>
       </CommentAuthor>
     </NotificationCard>

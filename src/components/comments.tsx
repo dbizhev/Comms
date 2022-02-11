@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { query, getDocs, collection } from "firebase/firestore";
+import { query, getDocs, collection, orderBy } from "firebase/firestore";
 import { styled } from "@stitches/react";
 import { db } from "../config/firebase";
 import CommentForm from "./commentform";
@@ -18,7 +18,7 @@ const Comments = ({ comments, id }: IComments) => {
   const [commentsList, setCommentsList] = useState<any>([]);
 
   const fetchComments = useCallback(async () => {
-    const q = query(collection(db, "comments"));
+    const q = query(collection(db, "comments"), orderBy("time"));
     const docs = await getDocs(q);
     let allComments: Array<any> = [];
     docs.forEach((item) => {

@@ -63,6 +63,7 @@ const CommentForm = () => {
       read: false,
       mentions: content.match(pattern) || null,
     };
+    console.log(post);
     var uniqId = "id" + new Date().getTime();
     let comment = {
       cId: uniqId,
@@ -92,14 +93,6 @@ const CommentForm = () => {
       >
         <MentionsInput
           style={defaultStyle}
-          // style={{
-          //   marginLeft: 20,
-          //   borderRadius: 8,
-          //   fontSize: 15,
-          //   paddingTop: 20,
-          //   width: "90%",
-          //   height: "100px",
-          // }}
           value={content}
           onChange={(e) => setContent(e.target.value)}
         >

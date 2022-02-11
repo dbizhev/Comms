@@ -17,11 +17,15 @@ const getUserPreference = async (user, post) => {
         addToInbox(user, post);
       }
 
-      if (!snapshot.data() || post.mentions.includes(user.userName)) {
+      if (
+        !snapshot.data() ||
+        post.mentions.includes(`@${user.userName}`) ||
+        post.mentions.includes(`@@@${user.userName}`)
+      ) {
         return post.mentions.forEach((mention) => {
           functions.logger.info("atss => ", mention);
           functions.logger.info("atss len => ", mention.split("@").length);
-          if (mention.split("@").length - 1 === 2) {
+          if (mention.split("@").length - 1 === 4) {
             post.replyRequest = true;
             addToInbox(user, post);
           } else {
