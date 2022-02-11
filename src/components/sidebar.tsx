@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faPlus, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 import { query, getDocs, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
@@ -104,11 +104,12 @@ export default function Sidebar() {
       </LogoContainer>
       {postList.length ? (
         <InboxItemNew onClick={() => history.push(`/inbox`)}>
-          INBOX - {postList.length}
+          <FontAwesomeIcon icon={faBell} color={"red"} /> INBOX -{" "}
+          {postList.length}
         </InboxItemNew>
       ) : (
         <InboxItem onClick={() => history.push(`/inbox`)}>
-          INBOX - {postList.length}
+          INBOX -{postList.length}
         </InboxItem>
       )}
       <div>

@@ -18,7 +18,7 @@ const PostReply = () => {
     await setDoc(
       doc(
         db,
-        `users/${auth.currentUser?.providerData[0].uid}/preference`,
+        `users/${auth.currentUser?.providerData[0].uid}/preference_post`,
         post_id
       ),
       { preference: e.target.value }
@@ -30,7 +30,7 @@ const PostReply = () => {
   const fetchPreference = useCallback(async () => {
     const notifRef = doc(
       db,
-      `users/${auth.currentUser?.providerData[0].uid}/preference`,
+      `users/${auth.currentUser?.providerData[0].uid}/preference_post`,
       post_id
     );
     const docs = await getDoc(notifRef);
@@ -68,7 +68,7 @@ const PostReply = () => {
                 value="Tagged"
                 name="preference"
               />
-              Get Tagged Notifications
+              Get Mentioned Notifications
             </div>
           </div>
           <div style={{ height: 800, overflow: "scroll" }}>

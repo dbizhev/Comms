@@ -18,7 +18,7 @@ const Comments = ({ comments, id }: IComments) => {
   const [commentsList, setCommentsList] = useState<any>([]);
 
   const fetchComments = useCallback(async () => {
-    const q = query(collection(db, "comments"), orderBy("time"));
+    const q = query(collection(db, "comments"), orderBy("time", "desc"));
     const docs = await getDocs(q);
     let allComments: Array<any> = [];
     docs.forEach((item) => {

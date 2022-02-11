@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { query, getDocs, collection } from "firebase/firestore";
+import { query, getDocs, collection, doc, setDoc } from "firebase/firestore";
 import { Container } from "../components/container";
 import { Content } from "../components/content";
 import { PageContainer } from "../components/pagecontainer";
@@ -7,7 +7,7 @@ import Sidebar from "../components/sidebar";
 import IPageProps from "../interfaces/page.interface";
 
 import { useParams, useHistory, Link } from "react-router-dom";
-import { db } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { styled } from "@stitches/react";
 import { Button } from "../components/button";
 import {
@@ -31,6 +31,22 @@ const Avatar = styled("img", {
   margin: "10px",
 });
 
+const Notifications = styled("button", {
+  borderRadius: "8px",
+  fontSize: "$2",
+  padding: "$2 $3",
+  // border: "2px solid $black",
+  color: "$black",
+  background: "$white",
+  marginLeft: "100px",
+  border: "none",
+
+  "&:hover": {
+    color: "$white",
+    border: "2px solid $black",
+  },
+});
+
 const Channel: React.FunctionComponent<IPageProps> = (props) => {
   const history = useHistory();
 
@@ -38,6 +54,18 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
   const { name } = useParams<{ name: string }>();
 
   const [postList, setPostList] = useState<any>([]);
+
+  const onChangePreference = async (e: any) => {
+    await setDoc(
+      doc(
+        db,
+        `users/${auth.currentUser?.providerData[0].uid}/preference_channel`,
+        channel_id
+      ),
+      { preference: e.target.value }
+    );
+    (window as any).alert("Preference Updated");
+  };
 
   const fetchPosts = useCallback(async () => {
     const q = query(collection(db, "posts"));
@@ -73,6 +101,26 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
           >
             <FontAwesomeIcon icon={faPlus} /> New Post in {name}
           </Button>
+          <div style={{ position: "relative" }}>
+            <div
+              style={{
+                marginTop: 40,
+              }}
+              onChange={onChangePreference}
+            >
+              <input type="radio" value="All" name="preference" /> Get All
+              Notifications from {name}
+              <input
+                style={{
+                  marginLeft: 40,
+                }}
+                type="radio"
+                value="Tagged"
+                name="preference"
+              />
+              Only Get Mentioned Notifications {name}
+            </div>
+          </div>
           <Container style={{ marginTop: 50, height: 500 }}>
             {postList.length === 0 && <h5>Create posts in {name}</h5>}
             {postList.length > 0 &&

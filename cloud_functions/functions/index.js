@@ -9,14 +9,13 @@ const getNotifieableUsers = async (currentUserId) =>
 
 const getUserPreference = async (user, post) => {
   return db
-    .collection(`users/${user.uid}/preference`)
+    .collection(`users/${user.uid}/preference_post`)
     .doc(post.pId)
     .get()
     .then((snapshot) => {
-      if (!snapshot.data() || snapshot.data().preference === "All") {
+      if (snapshot.data().preference === "All") {
         addToInbox(user, post);
       }
-
       if (
         !snapshot.data() ||
         post.mentions.includes(`@${user.userName}`) ||
@@ -55,5 +54,22 @@ exports.onPostCreated = functions.firestore
     const users = await getNotifieableUsers(post.AuthorId);
 
     functions.logger.info("Posts => ", post, "users => ", users);
-    return users.forEach((doc) => getUserPreference(doc.data(), post));
+
+    return users.forEach((doc) => {
+      db.collection(`users/${doc.data().uid}/preference_channel`)
+        .doc(post.chId)
+        .get()
+        .then((snapshot) => {
+          functions.logger.info("channel pref => ", snapshot.data());
+          if (snapshot.data().preference === "All") {
+            addToInbox(doc.data(), post);
+          } else {
+            getUserPreference(doc.data(), post);
+          }
+        })
+        .catch((reason) => {
+          functions.logger.info("error => ", reason);
+        });
+      getUserPreference(doc.data(), post);
+    });
   });

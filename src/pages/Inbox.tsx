@@ -43,7 +43,6 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
       `users/${auth.currentUser?.providerData[0].uid}/inbox`,
       pId
     );
-
     await updateDoc(notifRef, {
       read: true,
     });
@@ -79,7 +78,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
         <PageContainer>
           <Container>
             <h1>Inbox</h1>
-            {postList.length === 0 && <h5>Inbox Empty</h5>}
+            {postList.length === 0 && <h5>You have reached inbox</h5>}
             {postList.length > 0 &&
               postList.map((post: any) => {
                 return (
