@@ -105,7 +105,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                     </Post>
                     {post.replyRequest && (
                       <ReplyRequested style={{ marginRight: "10px" }}>
-                        Reply Requested
+                        Response Requested
                       </ReplyRequested>
                     )}
                     <MarkAsRead

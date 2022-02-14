@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faPlus, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { getAuth } from "firebase/auth";
 import { query, getDocs, collection } from "firebase/firestore";
 import { useCallback, useEffect, useState } from "react";
@@ -12,9 +12,7 @@ import { SideBarItem } from "./sidebaritem";
 const SidebarContainer = styled("div", {
   width: "20vw",
   background: "$white",
-  borderRight: "$darkGreen solid 2px",
-  marginTop: "20px",
-  marginBottom: "20px",
+  border: "$darkGreen solid 2px",
   color: "$black",
   height: "auto",
 });
@@ -33,13 +31,24 @@ const InboxItem = styled("h3", {
   },
 });
 
-const InboxItemNew = styled("h2", {
-  fontWeight: "bold",
+const InboxItemNew = styled("div", {
+  display: "flex",
+  fontWeight: "normal",
+  marginLeft: "100px",
   "&:hover": {
-    color: "$black",
     fontWeight: "bold",
     cursor: "pointer",
   },
+});
+
+const InboxAvatar = styled("div", {
+  height: "26px",
+  width: "26px",
+  borderRadius: "50%",
+  background: "red",
+  marginLeft: "10px",
+  lineHeight: "20px",
+  textAlign: "center",
 });
 
 const auth = getAuth();
@@ -96,16 +105,19 @@ export default function Sidebar() {
   return (
     <SidebarContainer>
       <LogoContainer>
-        <img
+        {/* <img
           height={50}
           src="https://4m4you.com/wp-content/uploads/2020/06/logo-placeholder.png"
           alt="logo"
-        />
+        /> */}
+        <h2>🛰 Comms</h2>
       </LogoContainer>
       {postList.length ? (
         <InboxItemNew onClick={() => history.push(`/inbox`)}>
-          <FontAwesomeIcon icon={faBell} color={"red"} /> INBOX -{" "}
-          {postList.length}
+          <span style={{ marginTop: "3px" }}>INBOX</span>
+          <InboxAvatar>
+            <span style={{ color: "white" }}>{postList.length}</span>
+          </InboxAvatar>
         </InboxItemNew>
       ) : (
         <InboxItem onClick={() => history.push(`/inbox`)}>
@@ -113,7 +125,7 @@ export default function Sidebar() {
         </InboxItem>
       )}
       <div>
-        <h3>CHANNELS</h3>
+        <h3>Channels</h3>
       </div>
       {channelList.length > 0 &&
         channelList.map((channel: any) => {
