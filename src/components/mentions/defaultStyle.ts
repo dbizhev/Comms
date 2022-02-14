@@ -3,7 +3,9 @@ export default {
     control: {
       backgroundColor: "#fff",
       fontSize: 12,
-      fontWeight: "normal"
+      fontWeight: "normal",
+      borderRadius:"8px",
+      height:"70px",
     },
   
     highlighter: {

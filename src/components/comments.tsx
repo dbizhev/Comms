@@ -39,7 +39,7 @@ const Comments = ({ comments, id }: IComments) => {
   return (
     <div style={{ height: 500, overflowInline: "scroll" }}>
       <div style={{ marginLeft: 50 }}>
-        <h5>Join the discussion</h5>
+        <h5>Reply...</h5>
         <CommentForm />
       </div>
       <h5 style={{ marginTop: 50, marginLeft: 50 }}>

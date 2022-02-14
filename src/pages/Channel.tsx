@@ -122,7 +122,8 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                         <Link
                           to={`/channel/${post.chId}/${post.pId}/${post.title}/comments`}
                         >
-                          {post.body || post.comment}
+                          {post.body.substring(0, 125) ||
+                            post.comment.substring(0, 125)}
                         </Link>
                       </PostTitle>
                     </Post>

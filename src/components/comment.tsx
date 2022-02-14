@@ -63,12 +63,12 @@ const SingleComment = ({ comment }: any) => (
 );
 
 const Comment = ({ comment, child, id }: any) => {
-  const [showReplyBox, setShowReplyBox] = useState(false);
+  // const [showReplyBox, setShowReplyBox] = useState(false);
   return (
-    <>
+    <div style={{ marginBottom: "10px" }}>
       <SingleComment comment={comment} />
       {child && <SingleComment comment={child} />}
-      {!child && (
+      {/* {!child && (
         <div>
           {showReplyBox ? (
             <div>
@@ -97,8 +97,8 @@ const Comment = ({ comment, child, id }: any) => {
             </Button>
           )}
         </div>
-      )}
-    </>
+      )} */}
+    </div>
   );
 };
 

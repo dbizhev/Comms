@@ -7,6 +7,11 @@ import IPageProps from "../interfaces/page.interface";
 import { query, getDocs, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { styled } from "@stitches/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
+
 import {
   NotificationCard,
   Post,
@@ -16,8 +21,6 @@ import {
   PostChannel,
   Name,
 } from "../components/listItems";
-import { getAuth } from "firebase/auth";
-import { styled } from "@stitches/react";
 
 const ReplyRequested = styled("button", {
   borderRadius: "8px",
@@ -95,7 +98,8 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                         <Link
                           to={`/channel/${post.chId}/${post.pId}/${post.title}/comments`}
                         >
-                          {post.body || post.comment}
+                          {post.body.substring(0, 125) ||
+                            post.comment.substring(0, 125)}
                         </Link>
                       </PostTitle>
                     </Post>
@@ -103,7 +107,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                       <ReplyRequested>Response Requested</ReplyRequested>
                     )}
                     <MarkAsRead onClick={() => markAsDone(post.pId)}>
-                      mark as done
+                      <FontAwesomeIcon icon={faBookOpen} />
                     </MarkAsRead>
                   </NotificationCard>
                 );

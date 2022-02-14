@@ -87,8 +87,6 @@ const CommentForm = () => {
         style={{
           fontSize: 15,
           paddingTop: 20,
-          borderRadius: 8,
-          width: "90%",
         }}
       >
         <MentionsInput
@@ -103,6 +101,8 @@ const CommentForm = () => {
         style={{
           marginTop: 20,
           marginBottom: 20,
+          marginRight: 20,
+          float: "right",
           backgroundColor: "#05473C",
           color: "white",
         }}
