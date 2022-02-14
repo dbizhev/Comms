@@ -51,6 +51,14 @@ const InboxAvatar = styled("div", {
   textAlign: "center",
 });
 
+const ChannelList = styled("div", {
+  height: "200px",
+  overflowY: "scroll",
+  "&::-webkit-scrollbar": {
+    display: "none",
+  },
+});
+
 const auth = getAuth();
 
 export default function Sidebar() {
@@ -121,24 +129,26 @@ export default function Sidebar() {
         </InboxItemNew>
       ) : (
         <InboxItem onClick={() => history.push(`/inbox`)}>
-          INBOX -{postList.length}
+          INBOX {postList.length}
         </InboxItem>
       )}
       <div>
         <h3>Channels</h3>
       </div>
-      {channelList.length > 0 &&
-        channelList.map((channel: any) => {
-          return (
-            <Link
-              to={`/channel/${channel.chId}/${channel.chName}`}
-              key={channel.chId}
-            >
-              <SideBarItem>#{channel.chName}</SideBarItem>
-            </Link>
-          );
-        })}
-      <div style={{ marginTop: 440 }}>
+      <ChannelList>
+        {channelList.length > 0 &&
+          channelList.map((channel: any) => {
+            return (
+              <Link
+                to={`/channel/${channel.chId}/${channel.chName}`}
+                key={channel.chId}
+              >
+                <SideBarItem>#{channel.chName}</SideBarItem>
+              </Link>
+            );
+          })}
+      </ChannelList>
+      <div style={{ marginTop: 300 }}>
         <Button>
           <Link to={"/add-channel"}>
             <FontAwesomeIcon icon={faPlus} /> New Channel

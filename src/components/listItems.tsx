@@ -28,21 +28,18 @@ export const Name = styled("div", {
 });
 export const Post = styled("div", {
   width: "100%",
-  marginLeft: "15px",
   marginTop: "15px",
+  alignItems: "start",
 });
 
 export const PostChannel = styled("div", {
-  fontSize: "14px",
-  marginLeft: "15px",
-  fontWeight: "bold",
-  textTransform: "uppercase",
+  fontSize: "12px",
+  fontWeight: "400",
   width: "100%",
 });
 
 export const PostTitle = styled("div", {
   fontSize: "11px",
-  marginLeft: "15px",
   width: "100%",
   overflow: "clip",
   "&:hover": {
@@ -62,6 +59,7 @@ export const MarkAsRead = styled("button", {
   borderRadius: "8px",
   fontSize: "10px",
   padding: "$2 $3",
+  marginRight: "10px",
   border: "2px solid $black",
   color: "$black",
   background: "$white",

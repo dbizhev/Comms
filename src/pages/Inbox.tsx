@@ -9,8 +9,6 @@ import { db } from "../config/firebase";
 import { Link } from "react-router-dom";
 import {
   NotificationCard,
-  Name,
-  Time,
   Post,
   Avatar,
   MarkAsRead,
@@ -22,6 +20,7 @@ import { styled } from "@stitches/react";
 
 const ReplyRequested = styled("button", {
   borderRadius: "8px",
+  marginRight: "10px",
   fontSize: "10px",
   padding: "$2 $3",
   color: "$white",
@@ -31,6 +30,13 @@ const ReplyRequested = styled("button", {
   marginLeft: "25px",
   marginTop: "15px",
   border: "none",
+});
+const Name = styled("div", {
+  fontSize: "16px",
+  marginTop: "25px",
+  marginLeft: "15px",
+  fontWeight: "400",
+  width: "100%",
 });
 
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
@@ -78,7 +84,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
         <PageContainer>
           <Container>
             <h1>Inbox</h1>
-            {postList.length === 0 && <h5>You have reached inbox</h5>}
+            {postList.length === 0 && <h5>You have reached inbox 0</h5>}
             {postList.length > 0 &&
               postList.map((post: any) => {
                 return (
@@ -89,29 +95,20 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
                       src={post.photoAuthor || ""}
                     />
                     <Name>{post.author}</Name>
-                    <Time>
-                      {post.body === "" ? "replied " : "posted"} on{" "}
-                      {post.time.toDate().toString().substring(0, 25)}
-                    </Time>
                     <Post>
-                      <PostChannel>{post.channel}</PostChannel>
+                      <PostChannel>#{post.channel}</PostChannel>
                       <PostTitle>
                         <Link
                           to={`/channel/${post.chId}/${post.pId}/${post.title}/comments`}
                         >
-                          {post.title}
+                          {post.body || post.comment}
                         </Link>
                       </PostTitle>
                     </Post>
                     {post.replyRequest && (
-                      <ReplyRequested style={{ marginRight: "10px" }}>
-                        Response Requested
-                      </ReplyRequested>
+                      <ReplyRequested>Response Requested</ReplyRequested>
                     )}
-                    <MarkAsRead
-                      style={{ marginRight: "10px" }}
-                      onClick={() => markAsDone(post.pId)}
-                    >
+                    <MarkAsRead onClick={() => markAsDone(post.pId)}>
                       mark as done
                     </MarkAsRead>
                   </NotificationCard>
