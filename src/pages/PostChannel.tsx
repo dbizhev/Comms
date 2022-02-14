@@ -70,6 +70,7 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
       AuthorId: auth.currentUser?.providerData[0].uid,
       read: false,
       mentions: body.match(patternReply) || null,
+      originalPost: true,
     };
     console.log(post);
     await addDoc(collection(db, "posts"), post);
@@ -98,7 +99,6 @@ const PostChannel: React.FunctionComponent<IPageProps> = (props) => {
                   fontSize: 15,
                   height: 40,
                   width: 170,
-                  borderRadius: 8,
                   marginLeft: 20,
                 }}
                 type="text"

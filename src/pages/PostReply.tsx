@@ -46,13 +46,11 @@ const Avatar = styled("img", {
   borderRadius: "50%",
   background: "Gray",
   marginBottom: "10px",
-  // margin: "10px",
 });
 
 const Name = styled("div", {
   fontSize: "16px",
   marginTop: "15px",
-  // marginLeft: "15px",
   fontWeight: "400",
   width: "100%",
 });

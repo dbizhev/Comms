@@ -52,13 +52,13 @@ const SingleComment = ({ comment }: any) => (
       />
       <CommentAuthor>
         <Italicized>
-          {comment.name} commented on{" "}
+          {comment.author} commented on{" "}
           {comment.time.toDate().toString().substring(0, 25)}
         </Italicized>
       </CommentAuthor>
     </NotificationCard>
 
-    <CommentText>{comment.comment}</CommentText>
+    <CommentText>{comment.body}</CommentText>
   </CommentContainer>
 );
 

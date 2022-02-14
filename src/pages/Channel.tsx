@@ -128,7 +128,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                       </PostTitle>
                     </Post>
                     <Time>
-                      {post.body === "" ? "replied " : "posted"} on{" "}
+                      {post.originalPost ? "posted " : "replied"} on{" "}
                       {post.time.toDate().toString().substring(0, 25)}
                     </Time>
                   </NotificationCard>

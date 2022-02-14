@@ -54,28 +54,28 @@ const CommentForm = () => {
       pId: post_id,
       time: new Date(),
       title: post_name,
-      comment: content,
-      body: "",
+      body: content,
       author: auth.currentUser?.displayName,
       photoAuthor: auth.currentUser?.photoURL,
       channel: post_name,
       AuthorId: auth.currentUser?.providerData[0].uid,
       read: false,
       mentions: content.match(pattern) || null,
+      originalPost: false,
+      replyToPost: post_id,
     };
-    console.log(post);
-    var uniqId = "id" + new Date().getTime();
-    let comment = {
-      cId: uniqId,
-      comment: content,
-      pId: post_id,
-      time: new Date(),
-      name: auth.currentUser?.displayName,
-      photoAuthor: auth.currentUser?.photoURL,
-      AuthorId: auth.currentUser?.providerData[0].uid,
-    };
+    // var uniqId = "id" + new Date().getTime();
+    // let comment = {
+    //   cId: uniqId,
+    //   comment: content,
+    //   pId: post_id,
+    //   time: new Date(),
+    //   name: auth.currentUser?.displayName,
+    //   photoAuthor: auth.currentUser?.photoURL,
+    //   AuthorId: auth.currentUser?.providerData[0].uid,
+    // };
     await addDoc(collection(db, "posts"), post);
-    await addDoc(collection(db, "comments"), comment);
+    // await addDoc(collection(db, "comments"), comment);
     setContent("");
     (window as any).alert("Comment posted");
     setTimeout((window as any).location.reload(), 3000);
