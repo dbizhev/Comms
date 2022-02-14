@@ -12,7 +12,7 @@ import { styled } from "@stitches/react";
 import { Button } from "../components/button";
 import { NotificationCard, Name, Time, Post } from "../components/listItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Avatar = styled("img", {
   height: "50px",
@@ -32,6 +32,12 @@ const PostTitle = styled("div", {
   "&:hover": {
     fontWeight: "bold",
   },
+});
+
+const SelectPreference = styled("select", {
+  height: "50px",
+  marginTop: "20px",
+  marginLeft: "20px",
 });
 
 const Channel: React.FunctionComponent<IPageProps> = (props) => {
@@ -65,6 +71,7 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
     const posts = allPosts.filter((item, key) => {
       return item.chId === channel_id;
     });
+    console.log(posts);
     setPostList(posts);
   }, [channel_id]);
 
@@ -83,32 +90,28 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
               color: "white",
               width: "200px",
               position: "relative",
+              float: "left",
             }}
             onClick={() => history.push(`/channel/${channel_id}/${name}/post`)}
           >
-            <FontAwesomeIcon icon={faPlus} /> New Post in {name}
+            <FontAwesomeIcon icon={faPlus} /> New
           </Button>
-          <div style={{ position: "relative" }}>
-            <div
-              style={{
-                marginTop: 40,
-              }}
-              onChange={onChangePreference}
-            >
-              <input type="radio" value="All" name="preference" /> Get All
-              Notifications from {name}
-              <input
-                style={{
-                  marginLeft: 40,
-                }}
-                type="radio"
-                value="Tagged"
-                name="preference"
-              />
-              Only Get Mentioned Notifications {name}
-            </div>
+          <div
+            style={{
+              position: "relative",
+              float: "right",
+              marginRight: "50px",
+            }}
+          >
+            <FontAwesomeIcon icon={faBell} />
+            <SelectPreference onChange={onChangePreference}>
+              <option value="All">Get All Notifications from {name}</option>
+              <option value="Tagged">
+                Only Get Mentioned Notifications {name}
+              </option>
+            </SelectPreference>
           </div>
-          <Container style={{ marginTop: 50, height: 500 }}>
+          <Container style={{ marginTop: 150, height: 500 }}>
             {postList.length === 0 && <h5>Create posts in {name}</h5>}
             {postList.length > 0 &&
               postList.map((post: any) => {

@@ -1,3 +1,5 @@
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "@stitches/react";
 import { getAuth } from "firebase/auth";
 import {
@@ -66,6 +68,12 @@ const PostContainer = styled("div", {
 const PostText = styled("p", {
   wordWrap: "break-word",
 });
+const SelectPreference = styled("select", {
+  height: "50px",
+  marginTop: "20px",
+  marginLeft: "20px",
+});
+
 const PostReply = () => {
   const auth = getAuth();
   const { post_id } = useParams<{ post_id: string }>();
@@ -144,30 +152,21 @@ const PostReply = () => {
             <Name>{author}</Name>
             <Time>{postTime}</Time>
           </AuthorCard>
+          <div
+            style={{
+              position: "relative",
+              marginLeft: "50px",
+            }}
+          >
+            <FontAwesomeIcon icon={faBell} />
+            <SelectPreference onChange={onChangePreference}>
+              <option value="All">Get All Notifications</option>
+              <option value="Tagged">Get Mentioned Notifications</option>
+            </SelectPreference>
+          </div>
           <PostContainer>
             <PostText>{body}</PostText>
           </PostContainer>
-          <div style={{ position: "relative" }}>
-            <div
-              style={{
-                marginTop: 40,
-                marginLeft: 40,
-              }}
-              onChange={onChangePreference}
-            >
-              <input type="radio" value="All" name="preference" /> Get All
-              Notifications
-              <input
-                style={{
-                  marginLeft: 40,
-                }}
-                type="radio"
-                value="Tagged"
-                name="preference"
-              />
-              Get Mentioned Notifications
-            </div>
-          </div>
           <div style={{ height: "100%", overflowY: "scroll", width: "100%" }}>
             <Comments id={post_id} />
           </div>
