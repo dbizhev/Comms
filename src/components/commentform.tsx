@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { collection, addDoc, getDocs, query } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import { MentionsInput, Mention } from "react-mentions";
@@ -10,6 +10,7 @@ import defaultStyle from "./mentions/defaultStyle";
 const CommentForm = () => {
   const auth = getAuth();
   const [content, setContent] = useState("");
+  const [channelName, setChannelName] = useState("");
   const { post_id } = useParams<{ post_id: string }>();
   const { post_name } = useParams<{ post_name: string }>();
   const { channel_id } = useParams<{ channel_id: string }>();
@@ -57,29 +58,39 @@ const CommentForm = () => {
       body: content,
       author: auth.currentUser?.displayName,
       photoAuthor: auth.currentUser?.photoURL,
-      channel: post_name,
+      channel: channelName,
       AuthorId: auth.currentUser?.providerData[0].uid,
       read: false,
       mentions: content.match(pattern) || null,
       originalPost: false,
       replyToPost: post_id,
     };
-    // var uniqId = "id" + new Date().getTime();
-    // let comment = {
-    //   cId: uniqId,
-    //   comment: content,
-    //   pId: post_id,
-    //   time: new Date(),
-    //   name: auth.currentUser?.displayName,
-    //   photoAuthor: auth.currentUser?.photoURL,
-    //   AuthorId: auth.currentUser?.providerData[0].uid,
-    // };
+
     await addDoc(collection(db, "posts"), post);
-    // await addDoc(collection(db, "comments"), comment);
     setContent("");
     (window as any).alert("Comment posted");
     setTimeout((window as any).location.reload(), 3000);
   };
+
+  const fetchChannelInfo = useCallback(async () => {
+    const qPost = query(
+      collection(db, "channels"),
+      where("chId", "==", channel_id)
+    );
+    const docsPost = await getDocs(qPost);
+    let selectedPost: Array<any> = [];
+
+    docsPost.forEach((item: any) => {
+      const data = item.data();
+      selectedPost.push(data);
+    });
+
+    setChannelName(selectedPost[0].chName);
+  }, [channel_id]);
+
+  useEffect(() => {
+    fetchChannelInfo();
+  }, [fetchChannelInfo]);
 
   return (
     <form onSubmit={(e) => handleCommentSubmission(e)}>

@@ -115,7 +115,7 @@ const PostReply = () => {
     });
 
     const mainPost = selectedPost.filter((item, key) => {
-      return item.body !== "";
+      return item.originalPost === true;
     });
 
     setChannel(mainPost[0].channel);

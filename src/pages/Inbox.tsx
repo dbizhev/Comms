@@ -67,6 +67,7 @@ const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
     const unRead = allNotifications.filter((item, key) => {
       return item.read === false;
     });
+    console.log(unRead);
 
     setPostList(unRead);
   }, [auth.currentUser?.providerData]);
