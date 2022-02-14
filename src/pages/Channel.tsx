@@ -10,15 +10,7 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { auth, db } from "../config/firebase";
 import { styled } from "@stitches/react";
 import { Button } from "../components/button";
-import {
-  NotificationCard,
-  Name,
-  Time,
-  Post,
-  PostTitle,
-  MarkAsRead,
-  PostChannel,
-} from "../components/listItems";
+import { NotificationCard, Name, Time, Post } from "../components/listItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -31,19 +23,14 @@ const Avatar = styled("img", {
   margin: "10px",
 });
 
-const Notifications = styled("button", {
-  borderRadius: "8px",
-  fontSize: "$2",
-  padding: "$2 $3",
-  // border: "2px solid $black",
+const PostTitle = styled("div", {
+  fontSize: "16px",
+  width: "100%",
+  overflow: "clip",
   color: "$black",
-  background: "$white",
-  marginLeft: "100px",
-  border: "none",
-
+  fontWeight: "400",
   "&:hover": {
-    color: "$white",
-    border: "2px solid $black",
+    fontWeight: "bold",
   },
 });
 
@@ -129,30 +116,20 @@ const Channel: React.FunctionComponent<IPageProps> = (props) => {
                   <NotificationCard>
                     <Avatar alt="" src={post.photoAuthor || ""} />
                     <Name>{post.author}</Name>
-                    <Time>
-                      {post.body === "" ? "replied " : "posted"} on{" "}
-                      {post.time.toDate().toString().substring(0, 25)}
-                    </Time>
+
                     <Post>
-                      <PostChannel>{post.channel}</PostChannel>
                       <PostTitle>
                         <Link
                           to={`/channel/${post.chId}/${post.pId}/${post.title}/comments`}
                         >
-                          {post.title}
+                          {post.body || post.comment}
                         </Link>
                       </PostTitle>
                     </Post>
-                    <MarkAsRead
-                      style={{ marginRight: "10px" }}
-                      onClick={() =>
-                        history.push(
-                          `/channel/${post.chId}/${post.pId}/${post.title}/comments`
-                        )
-                      }
-                    >
-                      join discussion
-                    </MarkAsRead>
+                    <Time>
+                      {post.body === "" ? "replied " : "posted"} on{" "}
+                      {post.time.toDate().toString().substring(0, 25)}
+                    </Time>
                   </NotificationCard>
                 );
               })}

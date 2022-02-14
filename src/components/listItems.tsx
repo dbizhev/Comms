@@ -12,18 +12,17 @@ export const NotificationCard = styled("div", {
 });
 
 export const Time = styled("div", {
-  fontSize: "13px",
+  fontSize: "16px",
   marginTop: "15px",
-  fontStyle: "italic",
+  color: "#848484",
   marginLeft: "15px",
   width: "100%",
 });
 export const Name = styled("div", {
-  fontSize: "$2",
-  marginTop: "15px",
+  fontSize: "16px",
+  marginTop: "25px",
   marginLeft: "15px",
-  fontWeight: "bold",
-  textTransform: "uppercase",
+  fontWeight: "400",
   width: "100%",
 });
 export const Post = styled("div", {

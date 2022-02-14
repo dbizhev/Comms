@@ -23,6 +23,7 @@ const LogoContainer = styled("div", {
 });
 
 const InboxItem = styled("h3", {
+  marginBottom: "40px",
   fontWeight: "normal",
   "&:hover": {
     color: "$black",
@@ -32,9 +33,11 @@ const InboxItem = styled("h3", {
 });
 
 const InboxItemNew = styled("div", {
+  marginBottom: "40px",
   display: "flex",
   fontWeight: "normal",
-  marginLeft: "100px",
+  alignItems: "center",
+  justifyContent: "center",
   "&:hover": {
     fontWeight: "bold",
     cursor: "pointer",

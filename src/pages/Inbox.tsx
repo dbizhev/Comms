@@ -14,6 +14,7 @@ import {
   MarkAsRead,
   PostTitle,
   PostChannel,
+  Name,
 } from "../components/listItems";
 import { getAuth } from "firebase/auth";
 import { styled } from "@stitches/react";
@@ -30,13 +31,6 @@ const ReplyRequested = styled("button", {
   marginLeft: "25px",
   marginTop: "15px",
   border: "none",
-});
-const Name = styled("div", {
-  fontSize: "16px",
-  marginTop: "25px",
-  marginLeft: "15px",
-  fontWeight: "400",
-  width: "100%",
 });
 
 const InboxPage: React.FunctionComponent<IPageProps> = (props) => {
